@@ -1,15 +1,28 @@
-//package com.totallytim.randomreminders
-//
-//import java.util.*
-//
-//class Reminder(private val name: String, private var frequency: Float) {
-//
-//    fun copyReminder(): Reminder {
-//        return Reminder(this.name, this.frequency)
-//    }
-//
-//    fun setReminderTime() {
-//        throw NotImplementedError("TODO")
-//    }
-//
-//}
+package com.totallytim.randomreminders;
+
+import java.util.Date;
+
+import kotlin.NotImplementedError;
+
+public class Reminder {
+
+    private String name;
+    private float frequency;
+
+    private Date nextOccurence;
+
+    public Reminder(String name, float frequency) {
+        this.name = name;
+        this.frequency = frequency;
+        this.resetReminderTime();
+    }
+
+    public Reminder copyReminder() {
+        return new Reminder(this.name, this.frequency);
+    }
+
+    public void resetReminderTime() {
+        throw new NotImplementedError("TODO");
+    }
+
+}
