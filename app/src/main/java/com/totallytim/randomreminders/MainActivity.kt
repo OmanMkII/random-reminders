@@ -1,6 +1,7 @@
 package com.totallytim.randomreminders
 
 import android.os.Bundle
+import android.os.Handler
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -12,13 +13,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        //
+        System.out.println("Showing brand")
+        setContentView(R.layout.brand)
+        Handler().postDelayed({
+            System.out.println("Moving to main screen")
+            // default
+            setContentView(R.layout.activity_main)
+            setSupportActionBar(toolbar)
+            }, 2500
+        );
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        // TODO: fix null pointer (needs a listener or something??)
+//        fab.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
