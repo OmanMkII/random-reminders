@@ -1,5 +1,7 @@
 package com.totallytim.randomreminders;
 
+//import android.app.Activity;
+import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.os.Handler;
 import com.google.android.material.snackbar.Snackbar;
@@ -22,31 +24,31 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("Showing brand");
         setContentView(R.layout.brand);
         new Handler().postDelayed(
-                new Runnable() {
-                      @Override
-                      public void run() {
-                          System.out.println("Moving to main screen");
-                          // default
-                          setContentView(R.layout.activity_main);
-                          toolbar = findViewById(R.id.toolbar);
-                          setSupportActionBar(toolbar);
-                    }
-              }, 2500
+            new Runnable() {
+                  @Override
+                  public void run() { }
+            }, 2500
         );
 
+        System.out.println("Moving to main screen");
+        setContentView(R.layout.activity_main);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         this.fab = findViewById(R.id.fab);
-        if(fab == null) {
-            System.out.println("fab was null");
-            return;
-        }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            Snackbar snackbar = Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                .setAction("Action", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        System.out.println("Registered click");
+                    }
+            });
+            snackbar.show();
             }
         });
-
     }
 
     @Override
@@ -63,9 +65,9 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        // TODO: ensure this works correctly
         switch(item.getItemId()) {
             case R.id.action_settings:
+                System.out.println("Registered 'Settings' click");
                 return true;
 
             default:
