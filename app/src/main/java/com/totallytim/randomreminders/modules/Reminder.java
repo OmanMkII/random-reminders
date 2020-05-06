@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders;
+package com.totallytim.randomreminders.modules;
 
 import java.util.Date;
 

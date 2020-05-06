@@ -1,7 +1,9 @@
-package com.totallytim.randomreminders;
+package com.totallytim.randomreminders.activities;
 
-//import android.app.Activity;
-import android.net.sip.SipSession;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import com.google.android.material.snackbar.Snackbar;
@@ -11,26 +13,21 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.totallytim.randomreminders.R;
+import com.totallytim.randomreminders.modules.Schedule;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Schedule schedule;
 
     private Toolbar toolbar;
     private FloatingActionButton fab;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
-        System.out.println("Showing brand");
-        setContentView(R.layout.brand);
-        new Handler().postDelayed(
-            new Runnable() {
-                  @Override
-                  public void run() { }
-            }, 2500
-        );
-
-        System.out.println("Moving to main screen");
         setContentView(R.layout.activity_main);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -39,16 +36,36 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            Snackbar snackbar = Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
-                .setAction("Action", new View.OnClickListener() {
+            Snackbar snackbar = Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_INDEFINITE)
+                .setAction("Make Notification", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         System.out.println("Registered click");
+                        addNotification();
                     }
             });
             snackbar.show();
             }
         });
+
+        this.schedule = null;
+    }
+
+    private void addNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.drawable.random_icon)
+                .setContentTitle("Notif title")
+                .setContentText("Notif content")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        Intent notificationIntent = new Intent(this, MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
     @Override
@@ -74,5 +91,10 @@ public class MainActivity extends AppCompatActivity {
                 super.onOptionsItemSelected(item);
                 return true;
         }
+    }
+
+    public void onButtonClick(View v){
+        Intent myIntent = new Intent(getBaseContext(), SettingsActivity.class);
+        startActivity(myIntent);
     }
 }
