@@ -24,7 +24,8 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.splash_screen);
         // delay so people see it
         try {
-            TimeUnit.MILLISECONDS.sleep(2500);
+            System.out.println("Skipping splash screen for now..");
+//            TimeUnit.MILLISECONDS.sleep(2500);
         } catch (Exception e) {
             System.err.println("Caught excpetion when asleep");
             System.err.print(e.getMessage());
