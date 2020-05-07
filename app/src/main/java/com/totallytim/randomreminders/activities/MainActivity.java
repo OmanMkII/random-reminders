@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // TODO: how to fix a snackbar:
+        // https://stackoverflow.com/a/44842735
         this.fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
