@@ -1,24 +1,26 @@
 package com.totallytim.randomreminders.modules;
 
-import java.util.Calendar;
 import java.util.Date;
-
-import kotlin.NotImplementedError;
 
 public class Reminder {
 
     private String name;
     private float frequency;
-    private Date nextOccurence;
+    private Date nextOccurrence;
 
-    public Reminder(String name, float frequency, Date nextOccurence) {
-        this.name = name;
-        this.frequency = frequency;
-        this.nextOccurence = nextOccurence;
+    public Reminder(String name, float frequency, Date nextOccurrence) {
+        if(name == null || frequency <= 0) {
+            throw new IllegalArgumentException();
+        } else {
+            this.name = name;
+            this.frequency = frequency;
+        }
+        this.nextOccurrence = nextOccurrence;
     }
 
     public Reminder copyReminder() {
-        return new Reminder(this.name, this.frequency, this.nextOccurence);
+        return new Reminder(new String(this.name), this.frequency,
+                new Date(this.nextOccurrence.getTime()));
     }
 
     public String getName() {
@@ -26,6 +28,7 @@ public class Reminder {
     }
 
     public void setName(String name) {
+        // TODO: test fails, expects null but got date
         this.name = name;
     }
 
@@ -34,14 +37,15 @@ public class Reminder {
     }
 
     public void setFrequency(float frequency) {
+        // TODO: test fails, expects null but got date
         this.frequency = frequency;
     }
 
-    public Date getNextOccurence() {
-        return nextOccurence;
+    public Date getNextOccurrence() {
+        return nextOccurrence;
     }
 
-    public void setNextOccurence(Date nextOccurence) {
-        this.nextOccurence = nextOccurence;
+    public void setNextOccurrence(Date nextOccurrence) {
+        this.nextOccurrence = nextOccurrence;
     }
 }

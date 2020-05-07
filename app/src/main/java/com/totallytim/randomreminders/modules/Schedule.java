@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 public class Schedule {
 
@@ -25,7 +24,7 @@ public class Schedule {
         this.reminders = reminders;
     }
 
-    public String getDayString(int day) {
+    public static String getDayString(int day) {
         switch(day) {
             case 0:
                 return "Sunday";
@@ -46,7 +45,7 @@ public class Schedule {
         }
     }
 
-    public int getDayIndex(String day) {
+    public static int getDayIndex(String day) {
         switch(day) {
             case "Sunday":
                 return 0;
@@ -97,7 +96,29 @@ public class Schedule {
 
         long instanceDate = (long) (Math.random() * (endMillis - startMillis));
 
-        reminder.setNextOccurence(new Date(startMillis + instanceDate));
+        reminder.setNextOccurrence(new Date(startMillis + instanceDate));
     }
 
+    public Date getNextReminder(Reminder reminder) throws NullPointerException {
+        if(!this.reminders.contains(reminder)) {
+            throw new NullPointerException();
+        }
+        return this.reminders.get(this.reminders.indexOf(reminder)).getNextOccurrence();
+    }
+
+    public List<Reminder> getReminders() {
+        return this.reminders;
+    }
+
+    public void addReminder(Reminder reminder) {
+        setNextReminder(reminder);
+    }
+
+    public boolean[][] getWeek() {
+        return week;
+    }
+
+    public void setWeek(boolean[][] week) {
+        this.week = week;
+    }
 }
