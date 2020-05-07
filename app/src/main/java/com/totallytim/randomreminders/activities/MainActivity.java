@@ -52,6 +52,8 @@ public class MainActivity extends AppCompatActivity {
         this.schedule = null;
     }
 
+    // TODO: proper logo for notifications
+
     private void addNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.random_icon)
