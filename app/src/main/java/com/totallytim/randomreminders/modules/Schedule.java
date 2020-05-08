@@ -1,7 +1,15 @@
 package com.totallytim.randomreminders.modules;
 
+import android.content.Context;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -17,8 +25,47 @@ public class Schedule {
     private List<Reminder> reminders;
 
     // TODO: import JSON as schedule
-    public Schedule(JSONObject jsonSchedule) {
+    public Schedule(Context context) {
+        JSONObject json;
+        try {
+            json = new JSONObject(
+                    Schedule.loadJsonAssets(context, "schedule.json"));
+
+            // TODO: convert JSON to valid array (or vice versa)
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
         throw new UnsupportedOperationException();
+    }
+
+    public Schedule(Context context, List<Reminder> reminders) {
+        this(context);
+        this.reminders = reminders;
+    }
+
+    private static String loadJsonAssets(Context context, String jsonPath) throws IOException {
+        String json;
+        try {
+            InputStream stream = context.getAssets().open(jsonPath);
+
+            int size = stream.available();
+            byte[] buffer = new byte[size];
+
+            stream.read(buffer);
+            stream.close();
+
+            json = new String(buffer, "utf-8");
+        } catch(FileNotFoundException e) {
+            System.out.println("No existing JSON object");
+            return "";
+        }
+        return json;
     }
 
     public Schedule(boolean[][] availableTimes) {
