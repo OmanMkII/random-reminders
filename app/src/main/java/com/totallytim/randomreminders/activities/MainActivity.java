@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // TODO: prompt to make schedule if null
+        // TODO: import local JSON as new schedule (if it exists)
         this.schedule = null;
     }
 

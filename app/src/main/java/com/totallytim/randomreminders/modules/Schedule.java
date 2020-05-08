@@ -1,5 +1,7 @@
 package com.totallytim.randomreminders.modules;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,6 +15,11 @@ public class Schedule {
     // for [hours]: T || F if it can be used (any minute within that hour)
     private boolean[][] week;
     private List<Reminder> reminders;
+
+    // TODO: import JSON as schedule
+    public Schedule(JSONObject jsonSchedule) {
+        throw new UnsupportedOperationException();
+    }
 
     public Schedule(boolean[][] availableTimes) {
         this.week = availableTimes;
@@ -120,5 +127,10 @@ public class Schedule {
 
     public void setWeek(boolean[][] week) {
         this.week = week;
+    }
+
+    // TODO: export as JSON to local for later import
+    public void exportJson() {
+        throw new UnsupportedOperationException();
     }
 }
