@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -20,7 +21,7 @@ public class Schedule {
     // TODO: clean up a little
 
     // format of [days][hours], week starts on Sunday, 24H clock
-    // for [hours]: T || F if it can be used (any minute within that hour)
+    // for [hours]: T | F if it can be used (any minute within that hour)
     private boolean[][] week;
     private List<Reminder> reminders;
 
@@ -32,14 +33,16 @@ public class Schedule {
                     Schedule.loadJsonAssets(context, "schedule.json"));
 
             // TODO: convert JSON to valid array (or vice versa)
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+
         } catch (JSONException e) {
+            // TODO: catch format(?) exception
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO: catch local exception
             e.printStackTrace();
         }
 
-
+        // https://stackoverflow.com/a/19945484
 
         throw new UnsupportedOperationException();
     }
@@ -60,7 +63,7 @@ public class Schedule {
             stream.read(buffer);
             stream.close();
 
-            json = new String(buffer, "utf-8");
+            json = new String(buffer, StandardCharsets.UTF_8);
         } catch(FileNotFoundException e) {
             System.out.println("No existing JSON object");
             return "";

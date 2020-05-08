@@ -11,12 +11,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ScrollView;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.ListFragment;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.totallytim.randomreminders.R;
 import com.totallytim.randomreminders.modules.Schedule;
+
+import java.lang.reflect.Array;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,6 +60,18 @@ public class MainActivity extends AppCompatActivity {
         // TODO: prompt to make schedule if null
         // TODO: import local JSON as new schedule (if it exists)
         this.schedule = null;
+
+        // TODO: display all existing reminders
+        String[] listDemo = {"Visual Basic .NET", "Java", "Android", "C# .NET", "PHP", "C++", "Scala", "Ruby on Rails", "Javascript", "HTML", "Python", "Swift"};
+
+        ListView listView = (ListView) findViewById(R.id.listView1);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listDemo);
+        ListFragment.setListAdapter(new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1,
+                this.directoryEntries));
+
+        listView.setAdapter(arrayAdapter);
     }
 
     // TODO: proper logo for notifications
