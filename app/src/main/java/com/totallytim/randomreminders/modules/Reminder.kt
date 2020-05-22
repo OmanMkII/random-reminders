@@ -4,18 +4,19 @@ import java.util.*
 
 class Reminder(
     name: String?,
-    frequency: Float,
-    nextOccurrence: Date
-) {
-    // TODO: test fails, expects null but got date
-    var name: String? = null
+    frequency: Double,
+    nextOccurrence: Date = Date()) {
 
     // TODO: test fails, expects null but got date
-    var frequency = 0f
+    var name: String?
+
+    // TODO: test fails, expects null but got date
+    var frequency: Double
     var nextOccurrence: Date
+
     fun copyReminder(): Reminder {
         return Reminder(
-            String(name), frequency,
+            name.toString(), frequency,
             Date(nextOccurrence.time)
         )
     }

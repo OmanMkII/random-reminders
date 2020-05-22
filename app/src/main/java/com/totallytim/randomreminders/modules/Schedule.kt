@@ -9,11 +9,12 @@ import java.nio.charset.StandardCharsets
 import java.util.*
 
 class Schedule {
+
     // TODO: clean up a little
     // format of [days][hours], week starts on Sunday, 24H clock
     // for [hours]: T | F if it can be used (any minute within that hour)
-    var week: Array<BooleanArray>
-    private var reminders: MutableList<Reminder>? = null
+    var week: Array<BooleanArray>? = null
+    var reminders: MutableList<Reminder>? = null
 
     // TODO: import JSON as schedule
     constructor(context: Context) {
@@ -54,7 +55,7 @@ class Schedule {
     }
 
     fun getAvailableDay(day: String?): BooleanArray {
-        return week[getDayIndex(day)]
+        return week!![getDayIndex(day)]
     }
 
     fun isAvailableHour(day: String?, hour: Int): Boolean {
@@ -72,11 +73,11 @@ class Schedule {
     // TODO: CRITICAL
     // TODO: verify that I have correct formats for times
     fun setNextReminder(reminder: Reminder) {
-        if (!reminders!!.contains(reminder)) {
+        if (! reminders!!.contains(reminder)) {
             reminders!!.add(reminder)
         }
         val startMillis = System.currentTimeMillis()
-        val endMillis = (startMillis + reminder.frequency) as Long
+        val endMillis = (startMillis + reminder.frequency).toLong()
         val instanceDate =
             (Math.random() * (endMillis - startMillis)).toLong()
         reminder.nextOccurrence = Date(startMillis + instanceDate)
@@ -88,10 +89,6 @@ class Schedule {
             throw NullPointerException()
         }
         return reminders!![reminders!!.indexOf(reminder)].nextOccurrence
-    }
-
-    fun getReminders(): List<Reminder>? {
-        return reminders
     }
 
     fun addReminder(reminder: Reminder) {
