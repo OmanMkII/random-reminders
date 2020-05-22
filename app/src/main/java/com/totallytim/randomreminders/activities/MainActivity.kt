@@ -13,28 +13,29 @@ import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationCompat
-import androidx.fragment.app.ListFragment
+import androidx.databinding.DataBindingUtil
+import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.totallytim.randomreminders.R
+import com.totallytim.randomreminders.databinding.ActivityMainBinding
 import com.totallytim.randomreminders.modules.Schedule
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var schedule: Schedule
-    private lateinit var toolbar: Toolbar
-    private lateinit var fab: FloatingActionButton
+    private lateinit var binding: ActivityMainBinding
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+//        toolbar = findViewById(R.id.toolbar)
+//        setSupportActionBar(toolbar)
 
         // TODO: how to fix a snackbar:
         // https://stackoverflow.com/a/44842735
-        fab = findViewById(R.id.fab)
-        fab.setOnClickListener(View.OnClickListener { view ->
+        binding.fab.setOnClickListener(View.OnClickListener { view ->
             val snackbar =
                 Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Make Notification") {
@@ -63,8 +64,9 @@ class MainActivity : AppCompatActivity() {
             "Python",
             "Swift"
         )
-        val listView =
-            findViewById<View>(R.id.listView1) as ListView
+        val listView = binding.listView1
+
+        // TODO: convert all R.id.* call to binding.*
         val arrayAdapter =
             ArrayAdapter(this, android.R.layout.simple_list_item_1, listDemo)
 //        ListFragment.setListAdapter(
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
 
 //        Intent notificationIntent = new Intent(this, MainActivity.class);
-        val notificationIntent = Intent(this, SettingsActivity::class.java)
+        val notificationIntent = Intent(this, SettingsFragment::class.java)
         val contentIntent = PendingIntent.getActivity(
             this, 0, notificationIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
@@ -124,7 +126,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun onButtonClick(v: View?) {
-        val myIntent = Intent(baseContext, SettingsActivity::class.java)
+        val myIntent = Intent(baseContext, SettingsFragment::class.java)
         startActivity(myIntent)
     }
 }
