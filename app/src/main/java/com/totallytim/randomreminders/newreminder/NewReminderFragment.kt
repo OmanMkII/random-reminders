@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.activities
+package com.totallytim.randomreminders.newreminder
 
 import android.R
 import android.os.Bundle

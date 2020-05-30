@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.totallytim.randomreminders.activities.SplashScreenFragment"
+        android:name="com.totallytim.randomreminders.splashscreen.SplashScreenFragment"
         android:label="splash_screen"
         tools:layout="@layout/splash_screen" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/newReminderFragment"
-        android:name="com.totallytim.randomreminders.activities.NewReminderFragment"
+        android:name="com.totallytim.randomreminders.newreminder.NewReminderFragment"
         android:label="NewReminderFragment"
         tools:layout="@layout/new_reminder_fragment" />
 </navigation>

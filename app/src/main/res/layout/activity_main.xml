@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:minWidth="100dp"
         android:minHeight="100dp"
-        tools:context=".activities.MainActivity">
+        tools:context=".MainActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"

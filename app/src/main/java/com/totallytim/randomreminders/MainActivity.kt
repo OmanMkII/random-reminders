@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.activities
+package com.totallytim.randomreminders
 
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.snackbar.Snackbar
-import com.totallytim.randomreminders.R
+import com.totallytim.randomreminders.activities.SettingsFragment
 import com.totallytim.randomreminders.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

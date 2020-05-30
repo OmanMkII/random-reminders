@@ -1,8 +1,9 @@
-package com.totallytim.randomreminders.activities
+package com.totallytim.randomreminders.splashscreen
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.totallytim.randomreminders.MainActivity
 
 class SplashScreenFragment : Fragment() {
     // Low priority:
