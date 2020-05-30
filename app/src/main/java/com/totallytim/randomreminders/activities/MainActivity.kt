@@ -9,17 +9,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.app.NotificationCompat
 import androidx.databinding.DataBindingUtil
-import androidx.drawerlayout.widget.DrawerLayout
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.databinding.ActivityMainBinding
-import com.totallytim.randomreminders.modules.Schedule
 
 class MainActivity : AppCompatActivity() {
 

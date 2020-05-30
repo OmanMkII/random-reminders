@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/FirstFragment"
@@ -25,4 +25,38 @@
             android:id="@+id/action_SecondFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="com.totallytim.randomreminders.activities.SplashScreenFragment"
+        android:label="splash_screen"
+        tools:layout="@layout/splash_screen" >
+        <action
+            android:id="@+id/action_splashScreenFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.totallytim.randomreminders.activities.SettingsFragment"
+        android:label="activity_settings"
+        tools:layout="@layout/activity_settings" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.totallytim.randomreminders.activities.MainFragment"
+        android:label="fragment_main"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_newReminderFragment2"
+            app:destination="@id/newReminderFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/newReminderFragment"
+        android:name="com.totallytim.randomreminders.activities.NewReminderFragment"
+        android:label="NewReminderFragment"
+        tools:layout="@layout/new_reminder_fragment" />
 </navigation>
