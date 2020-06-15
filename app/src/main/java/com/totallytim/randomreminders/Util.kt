@@ -1,5 +1,31 @@
 package com.totallytim.randomreminders
 
+import kotlin.math.floor
+import kotlin.math.pow
+
+const val BIN_BASE: Int = 2
+const val DEC_BASE: Int = 10
+const val HEX_BASE: Int = 16
+
+/**
+ * Retrieves the nth digit from a number string of any base.
+ *
+ * @param num   The number to retrieve the digit from
+ * @param index The index of the number to be retrieved
+ * @param base  The base of the number
+ * @return the nth digit of the number, accounting for base correctly
+ */
+fun nthDigit(num: Int, index: Int, base: Int): Double {
+    val divisor = floor(base.toDouble().pow(index - 1.0))
+    return (num / divisor) % base
+}
+
+/**
+ * Returns the day of the week from the index, starts with Sunday == 0
+ *
+ * @param day   The nth day of the week
+ * @return the String day of the week
+ */
 fun getDayString(day: Int): String {
     return when (day) {
         0 -> "Sunday"
@@ -18,7 +44,13 @@ fun getDayString(day: Int): String {
     }
 }
 
-fun getDayIndex(day: String?): Int {
+/**
+ * Gets the index of the listed day of the week, indexed from Sunday == 0
+ *
+ * @param day   The String day of the week
+ * @return the index of the nth day of the week
+ */
+fun getDayIndex(day: String): Int {
     return when (day) {
         "Sunday" -> 0
         "Monday" -> 1
