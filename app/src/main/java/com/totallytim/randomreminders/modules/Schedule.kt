@@ -137,7 +137,7 @@ class Schedule(var week: List<Day>,
      *
      * @return the next reminder by calendar date
      */
-    fun getNextReminder(): Reminder {
+    fun getNextReminder(): Reminder? {
         val sortedMap = reminders.entries.sortedWith(compareBy { it.value })
         return sortedMap[0].key
     }
