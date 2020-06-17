@@ -33,7 +33,7 @@ data class Reminder(
      * The next time this reminder instance will occur.
      */
     @ColumnInfo(name = "next_occurrence")
-    var nextOccurrence: Calendar = Calendar.getInstance(),
+    var nextOccurrence: String = Calendar.getInstance().toString(),
 
     /**
      * Additional information about this reminder that will be presented when triggered.
