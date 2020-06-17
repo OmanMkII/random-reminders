@@ -5,6 +5,7 @@ import com.totallytim.randomreminders.HEX_BASE
 import com.totallytim.randomreminders.database.Day
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabase
+import com.totallytim.randomreminders.fromCalendar
 import com.totallytim.randomreminders.nthDigit
 import java.lang.IllegalArgumentException
 import java.util.*
@@ -69,9 +70,9 @@ class Schedule(var week: LiveData<MutableList<Day>>,
         val rand = (2 * reminder.variance) * Math.random() - reminder.variance
         calendar.add(Calendar.DAY_OF_WEEK, (reminder.frequency + rand).toInt())
         if(reminders.value!!.contains(reminder)) {
-            reminders.value!![reminders.value!!.indexOf(reminder)].nextOccurrence = calendar
+            reminders.value!![reminders.value!!.indexOf(reminder)].nextOccurrence = fromCalendar(calendar)
         } else {
-            reminder.nextOccurrence = calendar
+            reminder.nextOccurrence = fromCalendar(calendar)
             reminders.value!!.add(reminder)
         }
 

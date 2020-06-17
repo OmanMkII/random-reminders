@@ -23,7 +23,7 @@ class SplashScreenFragment : Fragment() {
             System.err.print(e.message)
         }
         // forward to main activity
-        val myIntent = Intent(baseContext, MainActivity::class.java)
-        startActivity(myIntent)
+//        val myIntent = Intent(baseContext, MainActivity::class.java)
+//        startActivity(myIntent)
     }
 }

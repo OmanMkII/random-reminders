@@ -3,6 +3,7 @@ package com.totallytim.randomreminders.database
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.totallytim.randomreminders.fromCalendar
 import java.util.*
 
 /**
@@ -15,7 +16,7 @@ data class Reminder(
          * The generated primary key.
          */
         @PrimaryKey(autoGenerate = true)
-        var keyID: Long = 0L,
+        var keyID: Long,
 
         /**
          * The name of this reminder (non-unique).
@@ -41,10 +42,10 @@ data class Reminder(
          * The next time this reminder instance will occur.
          */
         @ColumnInfo(name = "next_occurrence")
-        var nextOccurrence: Calendar = Calendar.getInstance(),
+        var nextOccurrence: Long? = fromCalendar(Calendar.getInstance()),
 
         /**
          * Additional information about this reminder that will be presented when triggered.
          */
         @ColumnInfo(name = "description")
-        var description: String = "")
+        var description: String? = null)

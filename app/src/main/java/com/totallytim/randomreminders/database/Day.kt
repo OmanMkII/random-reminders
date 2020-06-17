@@ -60,5 +60,5 @@ data class Day(
      *
      * @return true iff no availability exist for this day
      */
-    fun isValidDay() = availability != 0x000000
+    fun isValidDay() = (availability != 0x000000)
 }
