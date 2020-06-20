@@ -8,7 +8,7 @@ import com.totallytim.randomreminders.database.ReminderDatabaseDao
 class SettingsViewModelFactory(
     private val dataSource: ReminderDatabaseDao,
     private val application: Application
-        ) : ViewModelProvider.Factory {
+) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
