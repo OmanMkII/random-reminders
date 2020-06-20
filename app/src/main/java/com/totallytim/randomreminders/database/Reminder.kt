@@ -31,7 +31,7 @@ data class Reminder(
         var frequency: Long = 0L,
 
         /**
-         * The variance from the mean at which this occurs; that is:
+         * The variance from the mean at which this occurs, that is:
          *
          * NEXT_OCCURRENCE = NOW + T(frequency +/- Range(variance))
          */
