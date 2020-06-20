@@ -1,160 +1,106 @@
 package com.totallytim.randomreminders.modules
 
-import android.content.Context
-import org.json.JSONException
-import org.json.JSONObject
-import java.io.FileNotFoundException
-import java.io.IOException
-import java.nio.charset.StandardCharsets
+import androidx.lifecycle.LiveData
+import com.totallytim.randomreminders.HEX_BASE
+import com.totallytim.randomreminders.database.Day
+import com.totallytim.randomreminders.database.Reminder
+import com.totallytim.randomreminders.database.ReminderDatabase
+import com.totallytim.randomreminders.fromCalendar
+import com.totallytim.randomreminders.nthDigit
+import java.lang.IllegalArgumentException
 import java.util.*
+import kotlin.math.floor
 
-class Schedule {
+/**
+ * The schedule for when all reminders that exist will trigger events in the main application, stores
+ * values as compact hexdec time values and caches them locally, before storing them according to the
+ * DAO.
+ */
+class Schedule(var week: LiveData<MutableList<Day>>,
+               var reminders: LiveData<MutableList<Reminder>>,
+               var database: ReminderDatabase) {
 
-    // TODO: clean up a little
-    // format of [days][hours], week starts on Sunday, 24H clock
-    // for [hours]: T | F if it can be used (any minute within that hour)
-    var week: Array<BooleanArray>? = null
-    var reminders: MutableList<Reminder>? = null
+    init {
+        // TODO: grab reminders from database (or null)
+        // TODO: grab schedule from database (insert a default if null)
+    }
 
-    // TODO: import JSON as schedule
-    constructor(context: Context) {
-        val json: JSONObject
-        try {
-            json = JSONObject(
-                loadJsonAssets(context, "schedule.json")
-            )
-
-            // TODO: convert JSON to valid array (or vice versa)
-        } catch (e: JSONException) {
-            // TODO: catch format(?) exception
-            e.printStackTrace()
-        } catch (e: IOException) {
-            // TODO: catch local exception
-            e.printStackTrace()
+    /**
+     * Returns what days are available from their string name.
+     *
+     * @param day   The day of the week
+     * @return the data object containing when any reminders may trigger
+     * @throws IllegalArgumentException
+     *              if an invalid day string is given
+     */
+    @Throws(IllegalArgumentException::class)
+    fun getAvailableDay(day: String): Day {
+        return when(day) {
+            // asserting non-null, hopefully that's what it needs
+            "Sunday" -> week.value!![0]
+            "Monday" -> week.value!![1]
+            "Tuesday" -> week.value!![2]
+            "Wednesday" -> week.value!![3]
+            "Thursday" -> week.value!![4]
+            "Friday" -> week.value!![5]
+            "Saturday" -> week.value!![6]
+            else -> throw IllegalArgumentException("Unknown day")
         }
-        throw UnsupportedOperationException()
     }
 
-    constructor(
-        context: Context,
-        reminders: MutableList<Reminder>?
-    ) : this(context) {
-        this.reminders = reminders
+    /**
+     * Asserts that the given day string has a valid time of the HH:mm given
+     *
+     * @param day       the day of the week
+     * @param hours     the hour queried
+     * @param minutes   the minute queried
+     * @return true iff the time period is valid for a reminder
+     */
+    fun isAvailableHour(day: String, hours: Int, minutes: Int): Boolean {
+        return getAvailableDay(day).isValidTime(hours, minutes)
     }
 
-    constructor(availableTimes: Array<BooleanArray>) {
-        week = availableTimes
-        reminders = ArrayList()
-    }
-
-    constructor(
-        availableTimes: Array<BooleanArray>,
-        reminders: MutableList<Reminder>?
-    ) : this(availableTimes) {
-        this.reminders = reminders
-    }
-
-    fun getAvailableDay(day: String?): BooleanArray {
-        return week!![getDayIndex(day)]
-    }
-
-    fun isAvailableHour(day: String?, hour: Int): Boolean {
-        return getAvailableDay(day)[hour]
-    }
-
-    fun isValidTime(time: Date?): Boolean {
-        val c = Calendar.getInstance()
-        c.time = time
-        val day = c[Calendar.DAY_OF_WEEK]
-        val hour = c[Calendar.HOUR_OF_DAY]
-        return isAvailableHour(getDayString(day), hour)
-    }
-
-    // TODO: CRITICAL
-    // TODO: verify that I have correct formats for times
+    /**
+     * Sets the next time for a Reminder event to trigger.
+     *
+     * @param reminder the Reminder to be triggered
+     */
     fun setNextReminder(reminder: Reminder) {
-        if (! reminders!!.contains(reminder)) {
-            reminders!!.add(reminder)
+        val calendar = Calendar.getInstance()
+        val rand = (2 * reminder.variance) * Math.random() - reminder.variance
+        calendar.add(Calendar.DAY_OF_WEEK, (reminder.frequency + rand).toInt())
+        if(reminders.value!!.contains(reminder)) {
+            reminders.value!![reminders.value!!.indexOf(reminder)].nextOccurrence = fromCalendar(calendar)
+        } else {
+            reminder.nextOccurrence = fromCalendar(calendar)
+            reminders.value!!.add(reminder)
         }
-        val startMillis = System.currentTimeMillis()
-        val endMillis = (startMillis + reminder.frequency).toLong()
-        val instanceDate =
-            (Math.random() * (endMillis - startMillis)).toLong()
-        reminder.nextOccurrence = Date(startMillis + instanceDate)
+
+        // TODO: insert to database
     }
 
-    @Throws(NullPointerException::class)
-    fun getNextReminder(reminder: Reminder): Date? {
-        if (!reminders!!.contains(reminder)) {
-            throw NullPointerException()
-        }
-        return reminders!![reminders!!.indexOf(reminder)].nextOccurrence
-    }
-
+    /**
+     * Inserts a new reminder to the database, and sets a trigger time for it.
+     *
+     * @param reminder  A new reminder object
+     */
     fun addReminder(reminder: Reminder) {
         setNextReminder(reminder)
+
+        // TODO: insert to database
     }
 
-    // TODO: export as JSON to local for later import
-    fun exportJson() {
-        throw UnsupportedOperationException()
-    }
-
-    companion object {
-        @Throws(IOException::class)
-        private fun loadJsonAssets(
-            context: Context,
-            jsonPath: String
-        ): String {
-            val json: String
-            json = try {
-                val stream = context.assets.open(jsonPath)
-                val size = stream.available()
-                val buffer = ByteArray(size)
-                stream.read(buffer)
-                stream.close()
-                String(buffer, StandardCharsets.UTF_8)
-            } catch (e: FileNotFoundException) {
-                println("No existing JSON object")
-                return ""
-            }
-            return json
-        }
-
-        fun getDayString(day: Int): String {
-            return when (day) {
-                0 -> "Sunday"
-                1 -> "Monday"
-                2 -> "Tuesday"
-                3 -> "Wednesday"
-                4 -> "Thursday"
-                5 -> "Friday"
-                6 -> "Saturday"
-                else -> throw UnsupportedOperationException(
-                    String.format(
-                        "Index '%d' not recognised",
-                        day
-                    )
-                )
-            }
-        }
-
-        fun getDayIndex(day: String?): Int {
-            return when (day) {
-                "Sunday" -> 0
-                "Monday" -> 1
-                "Tuesday" -> 2
-                "Wednesday" -> 3
-                "Thursday" -> 4
-                "Friday" -> 5
-                "Saturday" -> 6
-                else -> throw UnsupportedOperationException(
-                    String.format(
-                        "Day '%s' not recognised",
-                        day
-                    )
-                )
-            }
+    /**
+     * Retrieves the next reminder to be triggered
+     *
+     * @return the next reminder by calendar date
+     */
+    fun getNextReminder(): Reminder? {
+        return if(reminders.value!!.isEmpty()) {
+            null
+        } else {
+            val sortedList = reminders.value!!.sortedWith(compareBy { it.nextOccurrence })
+            return sortedList[0]
         }
     }
 }

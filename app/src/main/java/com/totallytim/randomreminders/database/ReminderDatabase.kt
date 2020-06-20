@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // TODO: documentation, and/or actually understand this a bit more
-@Database(entities = [Reminder::class], version = 1, exportSchema = false)
+@Database(entities = [Reminder::class, Day::class], version = 2, exportSchema = false)
 abstract class ReminderDatabase : RoomDatabase() {
 
     abstract val reminderDatabaseDao: ReminderDatabaseDao
@@ -17,7 +17,7 @@ abstract class ReminderDatabase : RoomDatabase() {
 
         fun getInstance(context: Context) : ReminderDatabase {
             synchronized(this) {
-                var instance = INSTANCE
+                val instance = INSTANCE
                 if (instance == null) {
                     Room.databaseBuilder(
                         context.applicationContext,

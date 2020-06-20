@@ -16,13 +16,25 @@ interface ReminderDatabaseDao {
      * Inserts a new Reminder object.
      */
     @Insert
-    fun insert(reminder: Reminder)
+    fun insert_day(day: Day)
 
     /**
      * updates an existing reminder object.
      */
     @Update
-    fun update(reminder: Reminder)
+    fun update_day(day: Day)
+
+    /**
+     * Inserts a new Reminder object.
+     */
+    @Insert
+    fun insert_reminder(reminder: Reminder)
+
+    /**
+     * updates an existing reminder object.
+     */
+    @Update
+    fun update_reminder(reminder: Reminder)
 
     /**
      * Clears an existing entry from the database.
@@ -52,8 +64,8 @@ interface ReminderDatabaseDao {
      * Selects all existing extries and orders by next occurring, with a variable limit on volume.
      */
     @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC LIMIT :num")
-    fun getNext(num: Int): LiveData<Reminder?>
+    fun getNext(num: Int): LiveData<List<Reminder>?>
+
     // TODO: why did the tutorial only take a nullable object instead of a nullable LiveData entry?
 //    fun getNext(): Reminder? // might need nullable entry?
-
 }
