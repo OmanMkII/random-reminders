@@ -26,8 +26,7 @@ class NewReminderFragment : Fragment() {
             ): View? {
 
 //        viewModel = ViewModelProvider(this).get(NewReminderViewModel::class.java)
-        binding = DataBindingUtil.inflate<FragmentNewReminderBinding>(inflater,
-                R.layout.fragment_new_reminder, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_new_reminder, container, false)
 
         binding.newReminderConfirmButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
