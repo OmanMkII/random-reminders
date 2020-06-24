@@ -16,10 +16,10 @@ class SettingsFragment : Fragment() {
     private lateinit var viewModel: SettingsViewModel
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+                ): View? {
 
 //        viewModel = ViewModelProvider(this).get(NewReminderViewModel::class.java)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_settings, container, false)
@@ -28,10 +28,6 @@ class SettingsFragment : Fragment() {
             view.findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
         }
 
-//        val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
-//        val newReminderFragment = view.findViewById(R.id.newReminderFragment) as EditText
-
         return binding.root
     }
-
 }
