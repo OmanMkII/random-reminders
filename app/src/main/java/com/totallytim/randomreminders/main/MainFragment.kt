@@ -24,14 +24,11 @@ class MainFragment : Fragment() {
                 savedInstanceState: Bundle?
             ): View? {
 
+        // Show action bad
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-//        viewModel = ViewModelProvider(this).get(NewReminderViewModel::class.java)
         binding = DataBindingUtil.inflate<FragmentMainBinding>(inflater,
                 R.layout.fragment_main, container, false)
-
-//        val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
-//        val newReminderFragment = view.findViewById(R.id.newReminderFragment) as EditText
 
         binding.newReminderButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)
