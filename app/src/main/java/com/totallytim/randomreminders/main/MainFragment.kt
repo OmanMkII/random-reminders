@@ -7,16 +7,21 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.databinding.FragmentMainBinding
-import com.totallytim.randomreminders.newreminder.NewReminderViewModel
 
+/**
+ * The primary fragment of the activity that displays the central data.
+ */
 class MainFragment : Fragment() {
 
+    // binding object
     private lateinit var binding: FragmentMainBinding
-//    private lateinit var viewModel: MainViewModel
+
+    // view models
+    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModelFactory: MainViewModelFactory
 
     override fun onCreateView(
                 inflater: LayoutInflater,

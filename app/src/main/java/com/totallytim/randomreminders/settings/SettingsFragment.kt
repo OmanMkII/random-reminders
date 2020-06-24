@@ -6,12 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
-import com.totallytim.randomreminders.databinding.FragmentNewReminderBinding
 import com.totallytim.randomreminders.databinding.FragmentSettingsBinding
-import com.totallytim.randomreminders.newreminder.NewReminderViewModel
 
 class SettingsFragment : Fragment() {
 

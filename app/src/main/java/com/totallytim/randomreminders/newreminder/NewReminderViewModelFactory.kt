@@ -4,8 +4,10 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
-import com.totallytim.randomreminders.settings.SettingsViewModel
 
+/**
+ * Factory for a new reminder view model
+ */
 class NewReminderViewModelFactory(
         private val dataSource: ReminderDatabaseDao,
         private val application: Application

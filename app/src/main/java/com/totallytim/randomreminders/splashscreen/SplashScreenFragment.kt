@@ -8,14 +8,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.*
-import java.util.concurrent.TimeUnit
 
-
+/**
+ * The fragment the displays the splash screen for the developer logo.
+ */
 class SplashScreenFragment : Fragment() {
 
     // Low priority:
@@ -32,16 +32,21 @@ class SplashScreenFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSplashScreenBinding>(inflater,
             R.layout.fragment_splash_screen,container,false)
 
-        splashScreenDelay()
+        splashScreenDelay(2500)
 
         return binding.root
     }
 
-    private fun splashScreenDelay() {
+    /**
+     * Delays the splash screen for a given time to display the brand of the application.
+     *
+     * @param time  the time (ms) of the delay
+     */
+    private fun splashScreenDelay(time: Long) {
         splashScope.launch {
             Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT)
                 .show()
-            delay(2500)
+            delay(time)
             findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
         }
     }
