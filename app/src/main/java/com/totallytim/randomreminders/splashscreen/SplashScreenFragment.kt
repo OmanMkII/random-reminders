@@ -19,9 +19,7 @@ import java.util.concurrent.TimeUnit
 class SplashScreenFragment : Fragment() {
 
     // Low priority:
-    // TODO: make it a little more pretty
-    // Medium priority:
-    // TODO: remove button and make it continue after a time
+    // TODO: make it an actual logo
 
     private val splashViewJob = Job()
     private val splashScope = CoroutineScope(Dispatchers.Main + splashViewJob)
@@ -34,10 +32,6 @@ class SplashScreenFragment : Fragment() {
         val binding = DataBindingUtil.inflate<FragmentSplashScreenBinding>(inflater,
             R.layout.fragment_splash_screen,container,false)
 
-        binding.splashContinue.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
-        }
-
         splashScreenDelay()
 
         return binding.root
@@ -48,7 +42,6 @@ class SplashScreenFragment : Fragment() {
             try {
                 Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT)
                     .show()
-//                TimeUnit.MILLISECONDS.sleep(2500)
                 delay(2500)
                 findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
             } catch (e: Exception) {
