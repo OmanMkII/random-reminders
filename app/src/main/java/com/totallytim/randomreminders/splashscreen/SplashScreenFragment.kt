@@ -34,7 +34,7 @@ class SplashScreenFragment : Fragment() {
 //            System.err.print(e.message)
 //        }
         // forward to main activity
-        Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT).show()
+//        Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT).show()
 
         val binding = DataBindingUtil.inflate<FragmentSplashScreenBinding>(inflater,
             R.layout.fragment_splash_screen,container,false)
