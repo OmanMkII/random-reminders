@@ -39,16 +39,10 @@ class SplashScreenFragment : Fragment() {
 
     private fun splashScreenDelay() {
         splashScope.launch {
-            try {
-                Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT)
-                    .show()
-                delay(2500)
-                findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
-            } catch (e: Exception) {
-                Toast.makeText(context, "Caught exception on splash screen", Toast.LENGTH_SHORT)
-                    .show()
-                System.err.print(e.message)
-            }
+            Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT)
+                .show()
+            delay(2500)
+            findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
         }
     }
 }
