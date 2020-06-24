@@ -1,15 +1,12 @@
 package com.totallytim.randomreminders.modules
 
 import androidx.lifecycle.LiveData
-import com.totallytim.randomreminders.HEX_BASE
 import com.totallytim.randomreminders.database.Day
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.fromCalendar
-import com.totallytim.randomreminders.nthDigit
 import java.lang.IllegalArgumentException
 import java.util.*
-import kotlin.math.floor
 
 /**
  * The schedule for when all reminders that exist will trigger events in the main application, stores

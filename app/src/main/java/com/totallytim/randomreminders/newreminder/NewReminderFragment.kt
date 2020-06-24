@@ -1,23 +1,26 @@
 package com.totallytim.randomreminders.newreminder
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.databinding.FragmentNewReminderBinding
 
+/**
+ * A fragment representing the creating a new reminder object.
+ */
 class NewReminderFragment : Fragment() {
 
+    // binding object
     private lateinit var binding: FragmentNewReminderBinding
+
+    // view model objects
     private lateinit var viewModel: NewReminderViewModel
+    private lateinit var viewModelFactory: NewReminderViewModelFactory
 
     override fun onCreateView(
                 inflater: LayoutInflater,

@@ -6,7 +6,10 @@ import androidx.databinding.DataBindingUtil
 import com.totallytim.randomreminders.databinding.ActivityMainBinding
 import timber.log.Timber
 
-class MainActivity : AppCompatActivity() {
+/**
+ * The main activity of the application.
+ */
+class RandomReminders : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 

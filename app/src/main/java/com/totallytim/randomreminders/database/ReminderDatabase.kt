@@ -9,12 +9,22 @@ import androidx.room.RoomDatabase
 @Database(entities = [Reminder::class, Day::class], version = 2, exportSchema = false)
 abstract class ReminderDatabase : RoomDatabase() {
 
+    // the database instance
     abstract val reminderDatabaseDao: ReminderDatabaseDao
 
+    /**
+     * The database companion object: returns the existing object or instantiates when called upon.
+     */
     companion object {
         @Volatile
         private var INSTANCE: ReminderDatabase? = null
 
+        /**
+         * Gets the instance of the database that exists internally and assigns it to the local
+         * instance variable for simpler retrieval in future.
+         *
+         * @return the instance database
+         */
         fun getInstance(context: Context) : ReminderDatabase {
             synchronized(this) {
                 val instance = INSTANCE

@@ -70,9 +70,22 @@ fun getDayIndex(day: String): Int {
     }
 }
 
+/**
+ * Converts the given Long to a calendar instance; enables storage in a non-text format for ease of
+ * use.
+ *
+ * @param l the input Long in calendar format
+ * @return a new calendar instance of the complete format, else null iff input is null
+ */
 @TypeConverter
 fun toCalendar(l: Long?): Calendar? =
     if (l == null) null else Calendar.getInstance().apply { timeInMillis = l }
 
+/**
+ * Converts the input Calendar instance to a Long type for easier storage.
+ *
+ * @param c the input Calendar instance
+ * @return a Long of the proper format
+ */
 @TypeConverter
 fun fromCalendar(c: Calendar?): Long? = c?.time?.time
