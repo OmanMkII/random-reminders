@@ -34,15 +34,5 @@
             app:layout_constraintVertical_chainStyle="packed"
             app:srcCompat="@drawable/brand_intro_dropbox" />
 
-        <Button
-            android:id="@+id/splashContinue"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="temp. continue"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

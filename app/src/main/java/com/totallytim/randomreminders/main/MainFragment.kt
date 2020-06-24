@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -23,12 +24,11 @@ class MainFragment : Fragment() {
                 savedInstanceState: Bundle?
             ): View? {
 
-//        viewModel = ViewModelProvider(this).get(NewReminderViewModel::class.java)
+        // Show action bad
+        (activity as AppCompatActivity?)!!.supportActionBar!!.show()
+
         binding = DataBindingUtil.inflate<FragmentMainBinding>(inflater,
                 R.layout.fragment_main, container, false)
-
-//        val view: View = inflater.inflate(R.layout.fragment_settings, container, false)
-//        val newReminderFragment = view.findViewById(R.id.newReminderFragment) as EditText
 
         binding.newReminderButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)
