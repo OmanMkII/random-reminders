@@ -22,24 +22,32 @@ data class Setting(
         @ColumnInfo(name = "entry_data")
         var data: String) {
 
-    fun getData(): Any {
-        return when(dataType) {
-            0 -> {
-                // String
-                data
-            }
-            1 -> {
-                // Integer
-                data.toInt()
-            }
-            2 -> {
-                // Boolean
-                when(data) {
-                    "0" -> false
-                    else -> true
-                }
-            }
-            else -> throw UnsupportedOperationException("Unknown stored type")
-        }
-    }
+    /**
+     * Converts the unknown data to its correct type and returns and 'Any' data type, to be used at
+     * runtime.
+     *
+     * TODO: make this compile properly
+     *
+     * @return the data in correct form
+     */
+//    fun getData(): Any {
+//        return when(dataType) {
+//            0 -> {
+//                // String
+//                data
+//            }
+//            1 -> {
+//                // Integer
+//                data.toInt()
+//            }
+//            2 -> {
+//                // Boolean
+//                when(data) {
+//                    "0" -> false
+//                    else -> true
+//                }
+//            }
+//            else -> throw UnsupportedOperationException("Unknown stored type")
+//        }
+//    }
 }

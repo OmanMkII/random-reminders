@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
-import com.totallytim.randomreminders.databinding.FragmentMainBinding
+import com.totallytim.randomreminders.databinding.MainFragmentBinding
 
 /**
  * The primary fragment of the activity that displays the central data.
@@ -17,7 +17,7 @@ import com.totallytim.randomreminders.databinding.FragmentMainBinding
 class MainFragment : Fragment() {
 
     // binding object
-    private lateinit var binding: FragmentMainBinding
+    private lateinit var binding: MainFragmentBinding
 
     // view models
     private lateinit var viewModel: MainViewModel
@@ -29,11 +29,16 @@ class MainFragment : Fragment() {
                 savedInstanceState: Bundle?
             ): View? {
 
-        // Show action bad
+        // Show action bar
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-        binding = DataBindingUtil.inflate<FragmentMainBinding>(inflater,
-                R.layout.fragment_main, container, false)
+//        viewModelFactory = MainViewModelFactory()
+//        viewModelFactory = SettingsViewModelFactory(SettingsFragmentArgs.fromBundle)
+//        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+
+
+        binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater,
+                R.layout.main_fragment, container, false)
 
         binding.newReminderButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)

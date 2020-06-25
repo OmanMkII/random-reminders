@@ -8,13 +8,12 @@ import com.totallytim.randomreminders.database.Setting
 /**
  * Factory for a new settings view model
  */
-class SettingsViewModelFactory(
-        private val settings: LiveData<List<Setting>>
+class SettingsViewModelFactory(private val currentSettings: List<Setting>
             ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SettingsViewModel::class.java)) {
-            return SettingsViewModel(settings) as T
+            return SettingsViewModel(currentSettings) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

@@ -18,29 +18,29 @@ interface ReminderDatabaseDao {
 
     /** Settings Queries */
 
-//    /**
-//     * Inserts a new Setting to the data table
-//     */
-//    @Insert
-//    fun insertSetting(setting: Setting)
+    /**
+     * Inserts a new Setting to the data table
+     */
+    @Insert
+    fun insertSetting(setting: Setting)
 
-//    /**
-//     * Updates an existing setting
-//     */
-//    @Update
-//    fun updateSetting(setting: Setting)
+    /**
+     * Updates an existing setting
+     */
+    @Update
+    fun updateSetting(setting: Setting)
 
-//    /**
-//     * Selects all setting from the table
-//     */
-//    @Query("SELECT * FROM settings_table")
-//    fun getAllSettings(): LiveData<List<Setting>>
-//
-//    /**
-//     * Selects a specific setting from the data table
-//     */
-//    @Query("SELECT * FROM settings_table WHERE field_name = :key")
-//    fun getOneSetting(key: String): LiveData<Setting?>
+    /**
+     * Selects all setting from the table
+     */
+    @Query("SELECT * FROM settings_table")
+    fun getAllSettings(): LiveData<List<Setting>>
+
+    /**
+     * Selects a specific setting from the data table
+     */
+    @Query("SELECT * FROM settings_table WHERE field_name = :key")
+    fun getOneSetting(key: String): LiveData<Setting?>
 
 
     /** Day Queries */

@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // TODO: documentation, and/or actually understand this a bit more
-@Database(entities = [Reminder::class, Day::class], version = 2, exportSchema = false)
+@Database(entities = [Reminder::class, Day::class, Setting::class], version = 3, exportSchema = false)
 abstract class ReminderDatabase : RoomDatabase() {
 
     // the database instance

@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.totallytim.randomreminders.R
-import com.totallytim.randomreminders.databinding.FragmentSplashScreenBinding
+import com.totallytim.randomreminders.databinding.SplashScreenFragmentBinding
 import kotlinx.coroutines.*
 
 /**
@@ -30,8 +30,8 @@ class SplashScreenFragment : Fragment() {
         // Hide action bar for splash screen
         (activity as AppCompatActivity?)!!.supportActionBar!!.hide()
 
-        val binding = DataBindingUtil.inflate<FragmentSplashScreenBinding>(inflater,
-            R.layout.fragment_splash_screen,container,false)
+        val binding = DataBindingUtil.inflate<SplashScreenFragmentBinding>(inflater,
+            R.layout.splash_screen_fragment,container,false)
 
         splashScreenDelay(2500)
 

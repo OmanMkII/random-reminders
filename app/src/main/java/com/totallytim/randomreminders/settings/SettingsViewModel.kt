@@ -8,8 +8,7 @@ import com.totallytim.randomreminders.database.Setting
 /**
  * Setting view model
  */
-class SettingsViewModel(
-    _settings: LiveData<List<Setting>>) : ViewModel() {
+class SettingsViewModel(currentSettings: List<Setting>) : ViewModel() {
 
     // TODO: implement view model (refer to tutorials)
 
@@ -25,6 +24,10 @@ class SettingsViewModel(
      * Stores the current state of the view
      */
     private var _settingsComplete: Boolean = false
+
+    init {
+        _settings.value = currentSettings
+    }
 
     /**
      * Executed when the 'confirm' button is tapped to leave the settings page.
