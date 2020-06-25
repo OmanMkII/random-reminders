@@ -12,29 +12,33 @@ import androidx.room.Update
 @Dao
 interface ReminderDatabaseDao {
 
-    /**
-     * Inserts a new Reminder object.
-     */
-    @Insert
-    fun insert_day(day: Day)
-
-    /**
-     * updates an existing reminder object.
-     */
-    @Update
-    fun update_day(day: Day)
+    // TODO: ensure I can grab all the proper fields
+    // TODO: make queries to grab all settings, certain setting
+    // TODO: make method to set all setting fields to a default value
 
     /**
      * Inserts a new Reminder object.
      */
     @Insert
-    fun insert_reminder(reminder: Reminder)
+    fun insertDay(day: Day)
 
     /**
      * updates an existing reminder object.
      */
     @Update
-    fun update_reminder(reminder: Reminder)
+    fun updateDay(day: Day)
+
+    /**
+     * Inserts a new Reminder object.
+     */
+    @Insert
+    fun insertReminder(reminder: Reminder)
+
+    /**
+     * updates an existing reminder object.
+     */
+    @Update
+    fun updateReminder(reminder: Reminder)
 
     /**
      * Clears an existing entry from the database.
@@ -65,7 +69,4 @@ interface ReminderDatabaseDao {
      */
     @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC LIMIT :num")
     fun getNext(num: Int): LiveData<List<Reminder>?>
-
-    // TODO: why did the tutorial only take a nullable object instead of a nullable LiveData entry?
-//    fun getNext(): Reminder? // might need nullable entry?
 }
