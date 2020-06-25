@@ -1,12 +1,8 @@
 package com.totallytim.randomreminders.settings
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.navigation.fragment.findNavController
-import com.totallytim.randomreminders.R
-import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.database.Setting
 
 /**
