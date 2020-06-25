@@ -43,5 +43,7 @@
         <action
             android:id="@+id/action_mainFragment_to_newReminderFragment"
             app:destination="@id/newReminderFragment" />
+        <argument android:name="settings" />
+        <argument android:name="reminders" />
     </fragment>
 </navigation>
