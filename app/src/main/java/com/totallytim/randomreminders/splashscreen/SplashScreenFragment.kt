@@ -20,6 +20,7 @@ class SplashScreenFragment : Fragment() {
 
     // Low priority:
     // TODO: make it an actual logo
+    // TODO: clean it up a little, see later tutorials
 
     private val splashViewJob = Job()
     private val splashScope = CoroutineScope(Dispatchers.Main + splashViewJob)

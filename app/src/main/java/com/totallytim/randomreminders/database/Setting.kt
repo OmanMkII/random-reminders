@@ -10,10 +10,12 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "settings_table")
 data class Setting(
-        @PrimaryKey
-        var field: String,
+    @PrimaryKey
+    @ColumnInfo(name = "field_name")
+    var field: String,
 
-        @ColumnInfo
-        var data: String) {
+    @ColumnInfo(name = "entry_type")
+    var dataType: Int = -1,
 
-}
+    @ColumnInfo(name = "entry_data")
+    var data: String)
