@@ -1,5 +1,6 @@
 package com.totallytim.randomreminders.main
 
+import android.app.Application
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.database.ReminderDatabase
+import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
 
 /**
@@ -19,8 +21,8 @@ import com.totallytim.randomreminders.databinding.MainFragmentBinding
 class MainFragment : Fragment() {
 
     // application
-//    private lateinit var application: Application
-//    private lateinit var dataSource: ReminderDatabaseDao
+    private lateinit var application: Application
+    private lateinit var dataSource: ReminderDatabaseDao
 
     // binding object
     private lateinit var binding: MainFragmentBinding
@@ -38,9 +40,8 @@ class MainFragment : Fragment() {
         // Show action bar
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-        val application = requireNotNull(this.activity).application
-        var temp = ReminderDatabase.getInstance(application)
-        val dataSource = temp.reminderDatabaseDao
+        application = requireNotNull(this.activity).application
+        dataSource = ReminderDatabase.getInstance(application).reminderDatabaseDao
 
         viewModelFactory = MainViewModelFactory(dataSource, application)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)

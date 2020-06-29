@@ -1,14 +1,18 @@
 package com.totallytim.randomreminders.settings
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.totallytim.randomreminders.database.Setting
+import com.totallytim.randomreminders.database.ReminderDatabaseDao
 
 /**
  * Setting view model
  */
-class SettingsViewModel(currentSettings: Array<String>) : ViewModel() {
+class SettingsViewModel(
+    private val dataSource: ReminderDatabaseDao,
+    private val application: Application
+) : ViewModel() {
 
     // TODO: implement view model (refer to tutorials)
 
@@ -25,9 +29,9 @@ class SettingsViewModel(currentSettings: Array<String>) : ViewModel() {
      */
     private var _settingsComplete: Boolean = false
 
-    init {
-        _settings.value = currentSettings
-    }
+//    init {
+//        _settings.value = currentSettings
+//    }
 
     /**
      * Executed when the 'confirm' button is tapped to leave the settings page.

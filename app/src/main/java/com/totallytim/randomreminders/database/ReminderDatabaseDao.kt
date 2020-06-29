@@ -33,7 +33,7 @@ interface ReminderDatabaseDao {
 //     * Selects all setting from the table
 //     */
     @Query("SELECT * FROM settings_table")
-    fun getAllSettings(): List<Setting>
+    fun getAllSettings(): LiveData<List<Setting>>
 //
 //    /**
 //     * Selects a specific setting from the data table
@@ -105,7 +105,7 @@ interface ReminderDatabaseDao {
 //     * Selects all existing entries, ordered by the next occurrence.
 //     */
     @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC")
-    fun getAllReminders(): List<Reminder>
+    fun getAllReminders(): LiveData<List<Reminder>>
 //
 //    /**
 //     * Selects all existing extries and orders by next occurring, with a variable limit on volume.
