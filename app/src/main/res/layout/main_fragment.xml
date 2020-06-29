@@ -15,7 +15,7 @@
         tools:showIn="@layout/activity_main">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/mainScreenTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -26,7 +26,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ScrollView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reminderRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"
@@ -34,36 +35,7 @@
             app:layout_constraintBottom_toTopOf="@+id/newReminderButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView5"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:text="Test Item 1"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:text="Test Item 2"
-                    android:textAlignment="center" />
-
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="match_parent"
-                    android:layout_height="32dp"
-                    android:text="Test Item 3"
-                    android:textAlignment="center" />
-
-            </LinearLayout>
-        </ScrollView>
+            app:layout_constraintTop_toBottomOf="@+id/mainScreenTitle" />
 
         <Button
             android:id="@+id/newReminderButton"

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="reminder"
+            type="com.totallytim.randomreminders.database.Reminder"/>
+
+<!--        TODO: proper listener for reminder on case by case-->
+<!--        <variable-->
+<!--            name="clickListener"-->
+<!--            type="com.totallytim.randomreminders.main.ReminderDataListener" />-->
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+<!--        TODO: implement listener here too-->
+<!--        android:onClick="@{() -> clickListener.onClick(reminder)}" >-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/reminderName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:reminderNameString="@{reminder.name}" />
+
+            <TextView
+                android:id="@+id/reminderFrequency"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:reminderFrequencyString="@{reminder.frequency}" />
+
+            <TextView
+                android:id="@+id/reminderVariance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:reminderVarianceString="@{reminder.variance}" />
+
+            <TextView
+                android:id="@+id/reminderDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:reminderDescriptionString="@{reminder.description}" />
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
