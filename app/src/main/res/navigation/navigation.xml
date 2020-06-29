@@ -34,7 +34,8 @@
             android:id="@+id/action_settingsFragment_to_mainFragment"
             app:destination="@id/mainFragment"
             app:popUpToInclusive="false" />
-        <argument android:name="settings" />
+        <argument android:name="settings"
+            app:argType="string[]" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -49,7 +50,9 @@
             android:id="@+id/action_mainFragment_to_newReminderFragment"
             app:destination="@id/newReminderFragment"
             app:popUpToInclusive="false" />
-        <argument android:name="settings" />
-        <argument android:name="reminders" />
+        <argument android:name="settings"
+            app:argType="string[]" />
+        <argument android:name="reminders"
+            app:argType="string[]" />
     </fragment>
 </navigation>

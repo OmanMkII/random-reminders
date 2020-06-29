@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import java.lang.NullPointerException
 
 // TODO: documentation, and/or actually understand this a bit more
 @Database(entities = [Reminder::class, Day::class, Setting::class], version = 3, exportSchema = false)
@@ -16,6 +17,7 @@ abstract class ReminderDatabase : RoomDatabase() {
      * The database companion object: returns the existing object or instantiates when called upon.
      */
     companion object {
+
         @Volatile
         private var INSTANCE: ReminderDatabase? = null
 
@@ -27,16 +29,19 @@ abstract class ReminderDatabase : RoomDatabase() {
          */
         fun getInstance(context: Context) : ReminderDatabase {
             synchronized(this) {
-                val instance = INSTANCE
+                var instance = INSTANCE
                 if (instance == null) {
-                    Room.databaseBuilder(
+                    // TODO: assign the instance you *moron*
+                    instance = Room.databaseBuilder(
                         context.applicationContext,
                         ReminderDatabase::class.java,
                         "reminder_database"
-                    ).fallbackToDestructiveMigration().build()
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
                     INSTANCE = instance
                 }
-                return instance!!
+                return instance
             }
         }
     }

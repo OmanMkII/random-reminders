@@ -1,6 +1,7 @@
 package com.totallytim.randomreminders
 
 import androidx.room.TypeConverter
+import com.totallytim.randomreminders.database.Setting
 import java.util.*
 import kotlin.math.floor
 import kotlin.math.pow
@@ -89,3 +90,19 @@ fun toCalendar(l: Long?): Calendar? =
  */
 @TypeConverter
 fun fromCalendar(c: Calendar?): Long? = c?.time?.time
+
+/**
+ * Converts the input list of Settings to a String list for simpler transfer (screw you Android)
+ *
+ * @param settings  The input Settings type array
+ * @return  an array of String settings for display
+ */
+@TypeConverter
+fun asStringArray(settings: List<Setting>): Array<String> {
+    val arraySettings: MutableList<String> = mutableListOf()
+    for(entry in settings) {
+        val arrayEntry = entry.field + ":" + entry.dataType.toString() + ":" + entry.data
+        arraySettings.add(arrayEntry)
+    }
+    return arraySettings.toTypedArray()
+}

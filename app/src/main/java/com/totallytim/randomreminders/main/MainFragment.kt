@@ -7,14 +7,20 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
+import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
 
 /**
  * The primary fragment of the activity that displays the central data.
  */
 class MainFragment : Fragment() {
+
+    // application
+//    private lateinit var application: Application
+//    private lateinit var dataSource: ReminderDatabaseDao
 
     // binding object
     private lateinit var binding: MainFragmentBinding
@@ -24,21 +30,23 @@ class MainFragment : Fragment() {
     private lateinit var viewModelFactory: MainViewModelFactory
 
     override fun onCreateView(
-                inflater: LayoutInflater,
-                container: ViewGroup?,
-                savedInstanceState: Bundle?
-            ): View? {
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+                ): View? {
 
         // Show action bar
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
 
-//        viewModelFactory = MainViewModelFactory()
-//        viewModelFactory = SettingsViewModelFactory(SettingsFragmentArgs.fromBundle)
-//        viewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+        val application = requireNotNull(this.activity).application
+        var temp = ReminderDatabase.getInstance(application)
+        val dataSource = temp.reminderDatabaseDao
 
+        viewModelFactory = MainViewModelFactory(dataSource, application)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        binding = DataBindingUtil.inflate<MainFragmentBinding>(inflater,
-                R.layout.main_fragment, container, false)
+        binding = DataBindingUtil.inflate(inflater,
+            R.layout.main_fragment, container, false)
 
         binding.newReminderButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)

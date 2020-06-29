@@ -8,7 +8,7 @@ import com.totallytim.randomreminders.database.Setting
 /**
  * Setting view model
  */
-class SettingsViewModel(currentSettings: List<Setting>) : ViewModel() {
+class SettingsViewModel(currentSettings: Array<String>) : ViewModel() {
 
     // TODO: implement view model (refer to tutorials)
 
@@ -16,8 +16,8 @@ class SettingsViewModel(currentSettings: List<Setting>) : ViewModel() {
      * The list of settings within this program; stored locally for use while running and backed up
      * to the database for retrieval when the app closes and re-launches.
      */
-    private lateinit var _settings: MutableLiveData<List<Setting>>
-    val settings: LiveData<List<Setting>>
+    private lateinit var _settings: MutableLiveData<Array<String>>
+    val settings: LiveData<Array<String>>
         get() = _settings
 
     /**
