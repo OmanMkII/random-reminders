@@ -1,5 +1,7 @@
 package com.totallytim.randomreminders
 
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import androidx.room.TypeConverter
 import com.totallytim.randomreminders.database.Setting
 import java.util.*
@@ -106,3 +108,5 @@ fun asStringArray(settings: List<Setting>): Array<String> {
     }
     return arraySettings.toTypedArray()
 }
+
+class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)

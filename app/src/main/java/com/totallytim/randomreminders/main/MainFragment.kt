@@ -14,6 +14,7 @@ import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
+import com.totallytim.randomreminders.reminders.ReminderAdapter
 
 /**
  * The primary fragment of the activity that displays the central data.
@@ -35,7 +36,7 @@ class MainFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-                ): View? {
+    ): View? {
 
         // Show action bar
         (activity as AppCompatActivity?)!!.supportActionBar!!.show()
@@ -48,6 +49,8 @@ class MainFragment : Fragment() {
 
         binding = DataBindingUtil.inflate(inflater,
             R.layout.main_fragment, container, false)
+
+        binding.reminderRecyclerView.adapter = ReminderAdapter()
 
         binding.newReminderButton.setOnClickListener { view : View ->
             view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)

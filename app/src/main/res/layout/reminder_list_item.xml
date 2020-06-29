@@ -31,26 +31,27 @@
             <TextView
                 android:id="@+id/reminderName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:reminderNameString="@{reminder.name}" />
+                android:layout_height="wrap_content" />
+<!--                TODO: fix this id problem-->
+<!--                app:reminderNameString="@{reminder.name}" />-->
 
-            <TextView
-                android:id="@+id/reminderFrequency"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:reminderFrequencyString="@{reminder.frequency}" />
+<!--            <TextView-->
+<!--                android:id="@+id/reminderFrequency"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:reminderFrequencyString="@{reminder.frequency}" />-->
 
-            <TextView
-                android:id="@+id/reminderVariance"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:reminderVarianceString="@{reminder.variance}" />
+<!--            <TextView-->
+<!--                android:id="@+id/reminderVariance"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:reminderVarianceString="@{reminder.variance}" />-->
 
-            <TextView
-                android:id="@+id/reminderDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:reminderDescriptionString="@{reminder.description}" />
+<!--            <TextView-->
+<!--                android:id="@+id/reminderDescription"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:reminderDescriptionString="@{reminder.description}" />-->
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
