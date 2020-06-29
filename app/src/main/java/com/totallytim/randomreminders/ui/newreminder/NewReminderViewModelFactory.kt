@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.newreminder
+package com.totallytim.randomreminders.ui.newreminder
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

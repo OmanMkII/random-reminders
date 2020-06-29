@@ -1,8 +1,9 @@
-package com.totallytim.randomreminders
+package com.totallytim.randomreminders.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.databinding.ActivityMainBinding
 import timber.log.Timber
 
@@ -16,6 +17,8 @@ class RandomReminders : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Timber.plant(Timber.DebugTree())
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this,
+            R.layout.activity_main
+        )
     }
 }

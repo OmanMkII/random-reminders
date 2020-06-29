@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.settings
+package com.totallytim.randomreminders.ui.settings
 
 import android.app.Application
 import androidx.lifecycle.LiveData

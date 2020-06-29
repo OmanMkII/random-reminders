@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.reminders
+package com.totallytim.randomreminders.ui.reminders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

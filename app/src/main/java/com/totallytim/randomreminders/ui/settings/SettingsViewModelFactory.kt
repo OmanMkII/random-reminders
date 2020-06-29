@@ -1,10 +1,9 @@
-package com.totallytim.randomreminders.settings
+package com.totallytim.randomreminders.ui.settings
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
-import com.totallytim.randomreminders.database.Setting
 
 /**
  * Factory for a new settings view model

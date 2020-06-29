@@ -1,12 +1,8 @@
-package com.totallytim.randomreminders.main
+package com.totallytim.randomreminders.ui.main
 
 import android.app.Application
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.totallytim.randomreminders.database.Reminder
-import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
-import com.totallytim.randomreminders.database.Setting
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job

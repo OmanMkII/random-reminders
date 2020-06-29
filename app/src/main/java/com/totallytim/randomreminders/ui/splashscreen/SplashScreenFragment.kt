@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.splashscreen
+package com.totallytim.randomreminders.ui.splashscreen
 
 import android.os.Bundle
 import android.view.LayoutInflater

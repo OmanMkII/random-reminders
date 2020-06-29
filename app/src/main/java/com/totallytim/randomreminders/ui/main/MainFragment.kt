@@ -1,4 +1,4 @@
-package com.totallytim.randomreminders.main
+package com.totallytim.randomreminders.ui.main
 
 import android.app.Application
 import android.os.Bundle
@@ -14,7 +14,8 @@ import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
-import com.totallytim.randomreminders.reminders.ReminderAdapter
+import com.totallytim.randomreminders.modules.Schedule
+import com.totallytim.randomreminders.ui.reminders.ReminderAdapter
 
 /**
  * The primary fragment of the activity that displays the central data.

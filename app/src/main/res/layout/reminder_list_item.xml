@@ -11,7 +11,7 @@
 <!--        TODO: proper listener for reminder on case by case-->
 <!--        <variable-->
 <!--            name="clickListener"-->
-<!--            type="com.totallytim.randomreminders.main.ReminderDataListener" />-->
+<!--            type="com.totallytim.randomreminders.ui.main.ReminderDataListener" />-->
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

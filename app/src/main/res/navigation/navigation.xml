@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashScreenFragment"
-        android:name="com.totallytim.randomreminders.splashscreen.SplashScreenFragment"
+        android:name="com.totallytim.randomreminders.ui.splashscreen.SplashScreenFragment"
         android:label="splash_screen"
         tools:layout="@layout/splash_screen_fragment" >
         <action
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/newReminderFragment"
-        android:name="com.totallytim.randomreminders.newreminder.NewReminderFragment"
+        android:name="com.totallytim.randomreminders.ui.newreminder.NewReminderFragment"
         android:label="NewReminderFragment"
         tools:layout="@layout/new_reminder_fragment" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.totallytim.randomreminders.settings.SettingsFragment"
+        android:name="com.totallytim.randomreminders.ui.settings.SettingsFragment"
         android:label="SettingsFragment"
         tools:layout="@layout/settings_fragment" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.totallytim.randomreminders.main.MainFragment"
+        android:name="com.totallytim.randomreminders.ui.main.MainFragment"
         android:label="MainFragment"
         tools:layout="@layout/main_fragment" >
         <action
