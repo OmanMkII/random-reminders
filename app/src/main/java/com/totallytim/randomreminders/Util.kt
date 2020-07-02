@@ -109,4 +109,20 @@ fun asStringArray(settings: List<Setting>): Array<String> {
     return arraySettings.toTypedArray()
 }
 
+/**
+ * Converts a Type T Array to a Mutable list, because *apparently* that's not something possible by
+ * conventional means...
+ *
+ * @param array type T array
+ * @return a Mutable Array for type T
+ */
+@TypeConverter
+fun <T> asMutableList(array: Array<T>): MutableList<T> {
+    var output: MutableList<T> = mutableListOf()
+    for (t in array) {
+        output.add(t)
+    }
+    return output
+}
+
 class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)

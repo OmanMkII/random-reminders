@@ -9,9 +9,7 @@ import kotlinx.coroutines.Job
 
 class MainViewModel(
         val dataSource: ReminderDatabaseDao,
-        application: Application
-//        val settings: LiveData<List<Setting>>,
-//        val reminders: LiveData<List<Reminder>>
+        val application: Application
 ) : ViewModel() {
 
     // TODO: implement view model (refer to tutorials)

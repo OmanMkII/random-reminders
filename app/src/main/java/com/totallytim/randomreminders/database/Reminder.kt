@@ -16,13 +16,13 @@ data class Reminder(
          * The generated primary key.
          */
         @PrimaryKey(autoGenerate = true)
-        var keyID: Long,
+        var keyID: Long = 0L,
 
         /**
          * The name of this reminder (non-unique).
          */
         @ColumnInfo(name = "reminder_name")
-        val name: String = "",
+        var name: String = "",
 
         /**
          * The frequency with which this reminder will recur.
@@ -48,4 +48,13 @@ data class Reminder(
          * Additional information about this reminder that will be presented when triggered.
          */
         @ColumnInfo(name = "description")
-        var description: String? = null)
+        var description: String? = null) {
+
+    fun setNextOccurrence() {
+        val calendar = Calendar.getInstance()
+        val rand = (2 * variance) * Math.random() - variance
+        calendar.add(Calendar.DAY_OF_WEEK, (frequency + rand).toInt())
+
+        nextOccurrence = fromCalendar(calendar)
+    }
+}

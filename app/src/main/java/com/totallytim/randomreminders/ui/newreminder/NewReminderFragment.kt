@@ -7,12 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.NewReminderFragmentBinding
+import kotlinx.coroutines.*
 
 /**
  * A fragment representing the creating a new reminder object.
@@ -39,14 +41,33 @@ class NewReminderFragment : Fragment() {
         application = requireNotNull(this.activity).application
         dataSource = ReminderDatabase.getInstance(application).reminderDatabaseDao
 
-        viewModelFactory = NewReminderViewModelFactory(dataSource, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(NewReminderViewModel::class.java)
-
         binding = DataBindingUtil.inflate(inflater, R.layout.new_reminder_fragment, container, false)
 
+        viewModelFactory = NewReminderViewModelFactory(dataSource, application, binding)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(NewReminderViewModel::class.java)
+
+        // binding
         binding.newReminderConfirmButton.setOnClickListener { view : View ->
+            viewModel.onFormCompleted()
             view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
         }
+
+        // observers
+        viewModel.reminderName.observe(viewLifecycleOwner, Observer {
+            name -> viewModel.reminderName.value = name
+        })
+
+        viewModel.reminderDescription.observe(viewLifecycleOwner, Observer {
+            description -> viewModel.reminderDescription.value = description
+        })
+
+        viewModel.reminderFrequency.observe(viewLifecycleOwner, Observer {
+            frequency -> viewModel.reminderFrequency.value = frequency.toLong()
+        })
+
+        viewModel.reminderVariance.observe(viewLifecycleOwner, Observer {
+            variance -> viewModel.reminderVariance.value = variance.toLong()
+        })
 
         return binding.root
     }

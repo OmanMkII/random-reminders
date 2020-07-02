@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
@@ -16,6 +17,10 @@ import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
 import com.totallytim.randomreminders.modules.Schedule
 import com.totallytim.randomreminders.ui.reminders.ReminderAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 /**
  * The primary fragment of the activity that displays the central data.
@@ -62,5 +67,14 @@ class MainFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    // TODO: update recycler view with proper formats (just a proof of concept for now)
+    fun onDatabaseUpdate() {
+        try {
+            binding.existingEntries.text = "{} entries exist.".format(dataSource.getAllReminders().value!!.size.toString())
+        } catch (e: Exception) {
+            binding.existingEntries.text = "No entries right now!"
+        }
     }
 }

@@ -33,7 +33,7 @@ class SplashScreenFragment : Fragment() {
         val binding = DataBindingUtil.inflate<SplashScreenFragmentBinding>(inflater,
             R.layout.splash_screen_fragment,container,false)
 
-        splashScreenDelay(2500)
+        splashScreenDelay()
 
         return binding.root
     }
@@ -43,10 +43,8 @@ class SplashScreenFragment : Fragment() {
      *
      * @param time  the time (ms) of the delay
      */
-    private fun splashScreenDelay(time: Long) {
+    private fun splashScreenDelay(time: Long = 2500) {
         splashScope.launch {
-            Toast.makeText(context, "Splash screen", Toast.LENGTH_SHORT)
-                .show()
             delay(time)
             findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
         }
