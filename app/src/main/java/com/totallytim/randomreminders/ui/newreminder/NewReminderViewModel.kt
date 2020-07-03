@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.NewReminderFragmentBinding
@@ -35,7 +36,10 @@ class NewReminderViewModel(
         reminderDescription
     )
 
-    private fun varsContainNull() : Boolean {
+    private var viewModelJob = Job()
+    private val newReminderScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    fun fieldsContainNull() : Boolean {
         for (i in inputs) {
             if (i.value == null) {
                 return true
@@ -44,12 +48,8 @@ class NewReminderViewModel(
         return false
     }
 
-    // scope of view
-    private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
-
     private fun insertNewReminder() {
-        uiScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val reminder = Reminder()
             reminder.setNextOccurrence()
             dataSource.insertNewReminder(reminder)
@@ -57,20 +57,21 @@ class NewReminderViewModel(
     }
 
     private fun clearFields() {
-        binding.fieldReminderName.text = null
-        binding.fieldReminderFrequency.text = null
-        binding.fieldReminderVariance.text = null
-        binding.fieldReminderDescription.text = null
+        // TODO: clear fields when transitioning to
+//        binding.fieldReminderName.text = null
+//        binding.fieldReminderFrequency.text = null
+//        binding.fieldReminderVariance.text = null
+//        binding.fieldReminderDescription.text = null
     }
 
     fun onFormCompleted() {
-        if(varsContainNull()) {
-            Toast.makeText(application.baseContext, "Please complete all fields", Toast.LENGTH_SHORT)
-                .show()
-        } else {
-            insertNewReminder()
-            clearFields()
-        }
+        insertNewReminder()
+        clearFields()
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        viewModelJob.cancel()
     }
 
 }

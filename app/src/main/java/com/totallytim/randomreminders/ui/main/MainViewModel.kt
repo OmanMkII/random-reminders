@@ -14,10 +14,8 @@ class MainViewModel(
 
     // TODO: implement view model (refer to tutorials)
 
-//    private lateinit var database: ReminderDatabase
-
     private var viewModelJob = Job()
-    private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+    private val mainScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     override fun onCleared() {
         super.onCleared()

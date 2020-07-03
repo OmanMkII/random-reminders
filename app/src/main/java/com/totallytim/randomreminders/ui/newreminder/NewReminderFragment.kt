@@ -7,6 +7,7 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -55,8 +56,13 @@ class NewReminderFragment : Fragment() {
 
         // binding
         binding.newReminderConfirmButton.setOnClickListener { view : View ->
-            viewModel.onFormCompleted()
-//            view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
+            if (viewModel.fieldsContainNull()) {
+                Toast.makeText(context, "Please complete all fields", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                viewModel.onFormCompleted()
+                view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
+            }
         }
 
         bindTextFields()
@@ -67,7 +73,7 @@ class NewReminderFragment : Fragment() {
     private fun bindTextFields() {
         binding.fieldReminderName.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderName.value = s.toString()
+                viewModel.reminderName.value = s?.toString()
             }
 
             // Do nothing for these?
@@ -77,7 +83,7 @@ class NewReminderFragment : Fragment() {
 
         binding.fieldReminderDescription.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderDescription.value = s.toString()
+                viewModel.reminderDescription.value = s?.toString()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -86,7 +92,7 @@ class NewReminderFragment : Fragment() {
 
         binding.fieldReminderVariance.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderVariance.value = s.toString().toLong()
+                viewModel.reminderVariance.value = s?.toString()?.toLong()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -95,7 +101,7 @@ class NewReminderFragment : Fragment() {
 
         binding.fieldReminderFrequency.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderFrequency.value = s.toString().toLong()
+                viewModel.reminderFrequency.value = s?.toString()?.toLong()
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
