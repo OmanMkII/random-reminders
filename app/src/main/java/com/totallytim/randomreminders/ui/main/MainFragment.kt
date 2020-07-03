@@ -17,6 +17,7 @@ import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
 import com.totallytim.randomreminders.modules.Schedule
+import com.totallytim.randomreminders.populateDatabase
 import com.totallytim.randomreminders.ui.reminders.ReminderAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +51,8 @@ class MainFragment : Fragment() {
 
         application = requireNotNull(this.activity).application
         dataSource = ReminderDatabase.getInstance(application).reminderDatabaseDao
+
+        populateDatabase(ReminderDatabase.getInstance(application))
 
         binding = DataBindingUtil.inflate(inflater,
             R.layout.main_fragment, container, false)

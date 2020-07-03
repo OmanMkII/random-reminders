@@ -3,6 +3,8 @@ package com.totallytim.randomreminders
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.TypeConverter
+import com.totallytim.randomreminders.database.Reminder
+import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.Setting
 import java.util.*
 import kotlin.math.floor
@@ -123,6 +125,38 @@ fun <T> asMutableList(array: Array<T>): MutableList<T> {
         output.add(t)
     }
     return output
+}
+
+/**
+ * Populates the database with bogus data for testing purposes.
+ *
+ * @param database  A reference to the database
+ */
+fun populateDatabase(database: ReminderDatabase) {
+    // Raw data
+    val names = arrayOf(
+        "Reminder 1",
+        "Reminder 2",
+        "Reminder 3",
+        "Reminder 4",
+        "Reminder 5"
+    )
+    val frequency = arrayOf(1L, 2L, 3L, 4L, 5L)
+    val variance = frequency
+    val description = arrayOf(
+        "First reminder.",
+        "",
+        "Third",
+        "Fourth",
+        ""
+    )
+    // Reminders
+    val reminders = arrayOf<Reminder?>(null, null, null, null, null)
+    for (i in 1..5) {
+        reminders[i] = Reminder(names[i], frequency[i], variance[i], null, description[i])
+        reminders[i]!!.setNextOccurrence()
+        database.reminderDatabaseDao.insertNewReminder(reminders[i]!!)
+    }
 }
 
 // temporary holder for recycler view
