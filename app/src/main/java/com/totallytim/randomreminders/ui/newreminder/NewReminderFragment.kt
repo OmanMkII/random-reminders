@@ -2,9 +2,12 @@ package com.totallytim.randomreminders.ui.newreminder
 
 import android.app.Application
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -44,31 +47,59 @@ class NewReminderFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.new_reminder_fragment, container, false)
 
         viewModelFactory = NewReminderViewModelFactory(dataSource, application, binding)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(NewReminderViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)
+                .get(NewReminderViewModel::class.java)
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
 
         // binding
         binding.newReminderConfirmButton.setOnClickListener { view : View ->
             viewModel.onFormCompleted()
-            view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
+//            view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
         }
 
-        // observers
-        viewModel.reminderName.observe(viewLifecycleOwner, Observer {
-            name -> viewModel.reminderName.value = name
-        })
-
-        viewModel.reminderDescription.observe(viewLifecycleOwner, Observer {
-            description -> viewModel.reminderDescription.value = description
-        })
-
-        viewModel.reminderFrequency.observe(viewLifecycleOwner, Observer {
-            frequency -> viewModel.reminderFrequency.value = frequency.toLong()
-        })
-
-        viewModel.reminderVariance.observe(viewLifecycleOwner, Observer {
-            variance -> viewModel.reminderVariance.value = variance.toLong()
-        })
+        bindTextFields()
 
         return binding.root
+    }
+
+    private fun bindTextFields() {
+        binding.fieldReminderName.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.reminderName.value = s.toString()
+            }
+
+            // Do nothing for these?
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.fieldReminderDescription.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.reminderDescription.value = s.toString()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.fieldReminderVariance.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.reminderVariance.value = s.toString().toLong()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        binding.fieldReminderFrequency.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.reminderFrequency.value = s.toString().toLong()
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
     }
 }

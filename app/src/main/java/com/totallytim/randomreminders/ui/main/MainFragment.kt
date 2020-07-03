@@ -71,10 +71,10 @@ class MainFragment : Fragment() {
 
     // TODO: update recycler view with proper formats (just a proof of concept for now)
     fun onDatabaseUpdate() {
-        try {
-            binding.existingEntries.text = "{} entries exist.".format(dataSource.getAllReminders().value!!.size.toString())
-        } catch (e: Exception) {
-            binding.existingEntries.text = "No entries right now!"
-        }
+//        try {
+//            binding.existingEntries.text = "{} entries exist.".format(dataSource.getAllReminders().value!!.size.toString())
+//        } catch (e: Exception) {
+//            binding.existingEntries.text = "No entries right now!"
+//        }
     }
 }
