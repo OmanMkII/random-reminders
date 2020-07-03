@@ -125,4 +125,7 @@ fun <T> asMutableList(array: Array<T>): MutableList<T> {
     return output
 }
 
+// temporary holder for recycler view
 class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+
+// TODO: proper recycler view

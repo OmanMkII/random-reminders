@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -50,31 +51,36 @@ class MainFragment : Fragment() {
         application = requireNotNull(this.activity).application
         dataSource = ReminderDatabase.getInstance(application).reminderDatabaseDao
 
-        viewModelFactory = MainViewModelFactory(dataSource, application)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-
         binding = DataBindingUtil.inflate(inflater,
             R.layout.main_fragment, container, false)
 
-        binding.reminderRecyclerView.adapter = ReminderAdapter()
+        viewModelFactory = MainViewModelFactory(dataSource, application, binding)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        binding.newReminderButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)
-        }
-
-        binding.settingsButton.setOnClickListener { view : View ->
-            view.findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-        }
+        bindObjects()
 
         return binding.root
     }
 
-    // TODO: update recycler view with proper formats (just a proof of concept for now)
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(context, viewModel.reminders.value?.size.toString(),
+            Toast.LENGTH_SHORT).show()
+    }
+
+    private fun bindObjects() {
+        binding.reminderRecyclerView.adapter = ReminderAdapter()
+
+        binding.newReminderButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_mainFragment_to_newReminderFragment)
+        }
+
+        binding.settingsButton.setOnClickListener { view: View ->
+            view.findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+        }
+    }
+
     fun onDatabaseUpdate() {
-//        try {
-//            binding.existingEntries.text = "{} entries exist.".format(dataSource.getAllReminders().value!!.size.toString())
-//        } catch (e: Exception) {
-//            binding.existingEntries.text = "No entries right now!"
-//        }
+        // TODO: update recycler view
     }
 }
