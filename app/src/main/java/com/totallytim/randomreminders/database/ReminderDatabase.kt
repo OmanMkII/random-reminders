@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import java.lang.NullPointerException
 
 // TODO: documentation, and/or actually understand this a bit more
-@Database(entities = [Reminder::class, Day::class, Setting::class], version = 3, exportSchema = false)
+@Database(entities = [Reminder::class, Day::class, Setting::class], version = 4, exportSchema = false)
 abstract class ReminderDatabase : RoomDatabase() {
 
     // the database instance

@@ -13,12 +13,6 @@ import java.util.*
 @Entity(tableName = "reminders_table")
 data class Reminder(
         /**
-         * The generated primary key.
-         */
-        @PrimaryKey(autoGenerate = true)
-        var keyID: Long = 0L,
-
-        /**
          * The name of this reminder (non-unique).
          */
         @ColumnInfo(name = "reminder_name")

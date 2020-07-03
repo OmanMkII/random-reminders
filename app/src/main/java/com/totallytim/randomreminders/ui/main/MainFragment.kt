@@ -80,7 +80,4 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun onDatabaseUpdate() {
-        // TODO: update recycler view
-    }
 }

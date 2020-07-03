@@ -10,10 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.NewReminderFragmentBinding
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * The view model for a new reminder
@@ -29,7 +26,7 @@ class NewReminderViewModel(
     var reminderVariance: MutableLiveData<Long?> = MutableLiveData(null)
     var reminderDescription: MutableLiveData<String?> = MutableLiveData(null)
 
-    private val inputs: Set<MutableLiveData<out Any?>> = setOf(
+    private val inputSet: Set<MutableLiveData<out Any?>> = setOf(
         reminderName,
         reminderFrequency,
         reminderVariance,
@@ -40,16 +37,16 @@ class NewReminderViewModel(
     private val newReminderScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     fun fieldsContainNull() : Boolean {
-        for (i in inputs) {
-            if (i.value == null) {
+        for (i in inputSet) {
+            if (i.value == null && i != reminderDescription) {
                 return true
             }
         }
         return false
     }
 
-    private fun insertNewReminder() {
-        viewModelScope.launch(Dispatchers.IO) {
+    private suspend fun insertNewReminder() {
+        return withContext(Dispatchers.IO) {
             val reminder = Reminder()
             reminder.setNextOccurrence()
             dataSource.insertNewReminder(reminder)
@@ -57,7 +54,7 @@ class NewReminderViewModel(
     }
 
     private fun clearFields() {
-        // TODO: clear fields when transitioning to
+        // TODO: clear fields when transitioning to || from
 //        binding.fieldReminderName.text = null
 //        binding.fieldReminderFrequency.text = null
 //        binding.fieldReminderVariance.text = null
@@ -65,8 +62,10 @@ class NewReminderViewModel(
     }
 
     fun onFormCompleted() {
-        insertNewReminder()
-        clearFields()
+        newReminderScope.launch {
+            insertNewReminder()
+            clearFields()
+        }
     }
 
     override fun onCleared() {
