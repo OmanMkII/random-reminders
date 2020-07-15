@@ -154,7 +154,8 @@ fun populateDatabase(database: ReminderDatabase) {
     val reminders = arrayOf<Reminder?>(null, null, null, null, null)
     for (i in 1..5) {
         reminders[i] = Reminder(names[i], frequency[i], variance[i], null, description[i])
-        reminders[i]!!.setNextOccurrence()
+        // TODO
+//        reminders[i]!!.setNextOccurrence()
         database.reminderDatabaseDao.insertNewReminder(reminders[i]!!)
     }
 }

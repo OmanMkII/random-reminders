@@ -22,14 +22,14 @@ data class Setting(
         @ColumnInfo(name = "entry_data")
         var data: String) {
 
-    /**
-     * Converts the unknown data to its correct type and returns and 'Any' data type, to be used at
-     * runtime.
-     *
-     * TODO: make this compile properly
-     *
-     * @return the data in correct form
-     */
+//    /**
+//     * Converts the unknown data to its correct type and returns and 'Any' data type, to be used at
+//     * runtime.
+//     *
+//     * TODO: make this compile properly
+//     *
+//     * @return the data in correct form
+//     */
 //    fun getData(): Any {
 //        return when(dataType) {
 //            0 -> {

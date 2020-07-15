@@ -10,9 +10,9 @@ import com.totallytim.randomreminders.databinding.MainFragmentBinding
  * View model factory of MainView
  */
 class MainViewModelFactory(
-            private val dataSource: ReminderDatabaseDao,
-            private val application: Application,
-            val binding: MainFragmentBinding
+    private val dataSource: ReminderDatabaseDao,
+    private val application: Application,
+    private val binding: MainFragmentBinding
 ) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {

@@ -16,7 +16,7 @@ import kotlinx.coroutines.*
  * The view model for a new reminder
  */
 class NewReminderViewModel(
-    val dataSource: ReminderDatabaseDao,
+    private val dataSource: ReminderDatabaseDao,
     val application: Application,
     val binding: NewReminderFragmentBinding
 ) : ViewModel() {
@@ -48,7 +48,7 @@ class NewReminderViewModel(
     private suspend fun insertNewReminder() {
         return withContext(Dispatchers.IO) {
             val reminder = Reminder()
-            reminder.setNextOccurrence()
+//            reminder.setNextOccurrence()
             dataSource.insertNewReminder(reminder)
         }
     }

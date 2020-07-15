@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import java.lang.NullPointerException
 
 // TODO: documentation, and/or actually understand this a bit more
 @Database(entities = [Reminder::class, Day::class, Setting::class], version = 4, exportSchema = false)

@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
-                android:text="Reminder Name:"
+                android:text="@string/reminder_name"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/newReminderTitle" />
 
@@ -36,7 +36,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="Enter reminder name"
+                android:hint="@string/enter_reminder_name"
                 android:inputType="textAutoCorrect"
                 android:text="@{viewModel.reminderName}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -49,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Frequency:"
+                android:text="@string/frequency"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fieldReminderName" />
 
@@ -60,7 +60,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="Enter the frequency (days)"
+                android:hint="@string/enter_the_frequency_days"
                 android:inputType="number"
                 android:text="@{viewModel.reminderFrequency.toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Variance:"
+                android:text="@string/variance"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fieldReminderFrequency" />
 
@@ -84,7 +84,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="Enter the variance (hours)"
+                android:hint="@string/enter_the_variance_hours"
                 android:inputType="number"
                 android:text="@{viewModel.reminderVariance.toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Create New Reminder"
+                android:text="@string/create_new_reminder"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,7 +109,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Description:"
+                android:text="@string/description"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fieldReminderVariance" />
 
@@ -120,7 +120,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:ems="10"
-                android:hint="Enter description (optional)"
+                android:hint="@string/enter_description_optional"
                 android:inputType="textLongMessage"
                 android:text="@{viewModel.reminderDescription}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +133,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="16dp"
-                android:text="Confirm"
+                android:text="@string/confirm"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fieldReminderDescription" />
 

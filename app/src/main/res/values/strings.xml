@@ -15,4 +15,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="main_title">Main Screen</string>
+    <string name="new_reminder">New Reminder</string>
+    <string name="settings">Settings</string>
+    <string name="reminder_name">Reminder Name:</string>
+    <string name="enter_reminder_name">Enter reminder name</string>
+    <string name="frequency">Frequency:</string>
+    <string name="enter_the_frequency_days">Enter the frequency (days)</string>
+    <string name="variance">Variance:</string>
+    <string name="enter_the_variance_hours">Enter the variance (hours)</string>
+    <string name="create_new_reminder">Create New Reminder</string>
+    <string name="description">Description:</string>
+    <string name="enter_description_optional">Enter description (optional)</string>
+    <string name="confirm">Confirm</string>
+    <string name="test_mode">Test Mode</string>
+    <string name="allow_notifications">Allow Notifications</string>
 </resources>

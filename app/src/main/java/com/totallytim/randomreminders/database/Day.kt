@@ -28,37 +28,38 @@ data class Day(
         @ColumnInfo(name = "day_availability")
         var availability: Int = 0x000000) {
 
-    /**
-     * Asserts that the given time (HH:mm) is valid for this day of the week
-     *
-     * @param hours     the hour specified (HH format)
-     * @param minutes   the minute specified (mm format)
-     * @return true iff the given time is within a valid range
-     * @throws IllegalArgumentException
-     *                  when the given arguments exceed time and space
-     */
-    @Throws(IllegalArgumentException::class)
-    fun isValidTime(hours: Int, minutes: Int): Boolean {
-        if (hours >= 24 || minutes >= 60) {
-            throw IllegalArgumentException()
-        }
-        // 6 slots of 4H sections (0H, 4H ...)
-        val hourIndex = floor(hours / 6.0).toInt()
-        val nthDigit = nthDigit(availability, hourIndex, HEX_BASE)
-        return if (nthDigit == 0.0) {
-            false
-        } else {
-            val bits = Integer.toBinaryString(nthDigit.toInt())
-            val minIndex = (hours % 6) * 4 + floor(minutes / 4.0)
-            // return true iff bit is 1 (true)
-            bits[minIndex.toInt()] == '1'
-        }
-    }
-
-    /**
-     * Asserts that this day object contains any timeslot that is valid.
-     *
-     * @return true iff no availability exist for this day
-     */
-    fun isValidDay() = (availability != 0x000000)
+//    /**
+//     * Asserts that the given time (HH:mm) is valid for this day of the week
+//     *
+//     * @param hours     the hour specified (HH format)
+//     * @param minutes   the minute specified (mm format)
+//     * @return true iff the given time is within a valid range
+//     * @throws IllegalArgumentException
+//     *                  when the given arguments exceed time and space
+//     */
+//    @Throws(IllegalArgumentException::class)
+//    fun isValidTime(hours: Int, minutes: Int): Boolean {
+//        if (hours >= 24 || minutes >= 60) {
+//            throw IllegalArgumentException()
+//        }
+//        // 6 slots of 4H sections (0H, 4H ...)
+//        val hourIndex = floor(hours / 6.0).toInt()
+//        val nthDigit = nthDigit(availability, hourIndex, HEX_BASE)
+//        return if (nthDigit == 0.0) {
+//            false
+//        } else {
+//            val bits = Integer.toBinaryString(nthDigit.toInt())
+//            val minIndex = (hours % 6) * 4 + floor(minutes / 4.0)
+//            // return true iff bit is 1 (true)
+//            bits[minIndex.toInt()] == '1'
+//        }
+//        return false
+//    }
+//
+//    /**
+//     * Asserts that this day object contains any timeslot that is valid.
+//     *
+//     * @return true iff no availability exist for this day
+//     */
+//    fun isValidDay() = (availability != 0x000000)
 }

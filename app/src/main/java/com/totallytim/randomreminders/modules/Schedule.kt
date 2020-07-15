@@ -57,7 +57,9 @@ class Schedule(var database: ReminderDatabase) {
      * @return true iff the time period is valid for a reminder
      */
     fun isAvailableHour(day: String, hours: Int, minutes: Int): Boolean {
-        return getAvailableDay(day).isValidTime(hours, minutes)
+        // TODO: return is valid time
+//        return getAvailableDay(day).isValidTime(hours, minutes)
+        return false
     }
 
     /**

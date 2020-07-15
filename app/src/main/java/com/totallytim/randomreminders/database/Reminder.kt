@@ -15,6 +15,7 @@ data class Reminder(
         /**
          * The name of this reminder (non-unique).
          */
+        @PrimaryKey
         @ColumnInfo(name = "reminder_name")
         var name: String = "",
 
@@ -43,12 +44,12 @@ data class Reminder(
          */
         @ColumnInfo(name = "description")
         var description: String? = null) {
-
-    fun setNextOccurrence() {
-        val calendar = Calendar.getInstance()
-        val rand = (2 * variance) * Math.random() - variance
-        calendar.add(Calendar.DAY_OF_WEEK, (frequency + rand).toInt())
-
-        nextOccurrence = fromCalendar(calendar)
-    }
+//
+//    fun setNextOccurrence() {
+//        val calendar = Calendar.getInstance()
+//        val rand = (2 * variance) * Math.random() - variance
+//        calendar.add(Calendar.DAY_OF_WEEK, (frequency + rand).toInt())
+//
+//        nextOccurrence = fromCalendar(calendar)
+//    }
 }
