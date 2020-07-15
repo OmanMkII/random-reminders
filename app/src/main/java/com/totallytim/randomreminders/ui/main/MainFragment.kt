@@ -52,8 +52,6 @@ class MainFragment : Fragment() {
         application = requireNotNull(this.activity).application
         dataSource = ReminderDatabase.getInstance(application).reminderDatabaseDao
 
-        populateDatabase(ReminderDatabase.getInstance(application))
-
         binding = DataBindingUtil.inflate(inflater,
             R.layout.main_fragment, container, false)
 

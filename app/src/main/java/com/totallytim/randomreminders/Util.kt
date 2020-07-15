@@ -6,6 +6,8 @@ import androidx.room.TypeConverter
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.Setting
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 import kotlin.math.floor
 import kotlin.math.pow
@@ -132,31 +134,33 @@ fun <T> asMutableList(array: Array<T>): MutableList<T> {
  *
  * @param database  A reference to the database
  */
-fun populateDatabase(database: ReminderDatabase) {
-    // Raw data
-    val names = arrayOf(
-        "Reminder 1",
-        "Reminder 2",
-        "Reminder 3",
-        "Reminder 4",
-        "Reminder 5"
-    )
-    val frequency = arrayOf(1L, 2L, 3L, 4L, 5L)
-    val variance = frequency
-    val description = arrayOf(
-        "First reminder.",
-        "",
-        "Third",
-        "Fourth",
-        ""
-    )
-    // Reminders
-    val reminders = arrayOf<Reminder?>(null, null, null, null, null)
-    for (i in 1..5) {
-        reminders[i] = Reminder(names[i], frequency[i], variance[i], null, description[i])
-        // TODO
-//        reminders[i]!!.setNextOccurrence()
-        database.reminderDatabaseDao.insertNewReminder(reminders[i]!!)
+suspend fun populateDatabase(database: ReminderDatabase) {
+    return withContext(Dispatchers.IO) {
+        // Raw data
+        val names = arrayOf(
+            "Reminder 1",
+            "Reminder 2",
+            "Reminder 3",
+            "Reminder 4",
+            "Reminder 5"
+        )
+        val frequency = arrayOf(1L, 2L, 3L, 4L, 5L)
+        val variance = frequency
+        val description = arrayOf(
+            "First reminder.",
+            "",
+            "Third",
+            "Fourth",
+            ""
+        )
+        // Reminders
+        val reminders = arrayOf<Reminder?>(null, null, null, null, null)
+        for (i in 0..4) {
+            reminders[i] = Reminder(names[i], frequency[i], variance[i], null, description[i])
+            // TODO
+            //        reminders[i]!!.setNextOccurrence()
+            database.reminderDatabaseDao.updateExistingReminder(reminders[i]!!)
+        }
     }
 }
 
