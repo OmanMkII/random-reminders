@@ -13,43 +13,49 @@ import java.util.*
 @Entity(tableName = "reminders_table")
 data class Reminder(
     /**
-         * The name of this reminder (non-unique).
-         */
-        @PrimaryKey
-        @ColumnInfo(name = "reminder_name")
+     * The name of this reminder (non-unique).
+     */
+    @PrimaryKey
+    @ColumnInfo(name = "reminder_name")
     var name: String = "",
 
     /**
-         * The frequency with which this reminder will recur.
-         */
-        @ColumnInfo(name = "frequency")
+     * The frequency with which this reminder will recur.
+     */
+    @ColumnInfo(name = "frequency")
     var frequency: Long = 0L,
 
     /**
-         * The variance from the mean at which this occurs, that is:
-         *
-         * NEXT_OCCURRENCE = NOW + T(frequency +/- Range(variance))
-         */
-        @ColumnInfo(name = "variance")
+     * The variance from the mean at which this occurs, that is:
+     *
+     * NEXT_OCCURRENCE = NOW + T(frequency +/- Range(variance))
+     */
+    @ColumnInfo(name = "variance")
     var variance: Float = 0f,
 
     /**
-         * The next time this reminder instance will occur.
-         */
-        @ColumnInfo(name = "next_occurrence")
+     * The next time this reminder instance will occur.
+     */
+    @ColumnInfo(name = "next_occurrence")
     var nextOccurrence: Long? = fromCalendar(Calendar.getInstance()),
 
     /**
-         * Additional information about this reminder that will be presented when triggered.
-         */
-        @ColumnInfo(name = "description")
-    var description: String? = null) {
-//
-//    fun setNextOccurrence() {
-//        val calendar = Calendar.getInstance()
-//        val rand = (2 * variance) * Math.random() - variance
-//        calendar.add(Calendar.DAY_OF_WEEK, (frequency + rand).toInt())
-//
-//        nextOccurrence = fromCalendar(calendar)
-//    }
+     * Additional information about this reminder that will be presented when triggered.
+     */
+    @ColumnInfo(name = "description")
+    var description: String? = null
+)
+
+/**
+ * Sets the next occurrence of the reminder randomly based on the average next occurrence and the
+ * variance from it.
+ *
+ * @param reminder  The reminder being set
+ */
+fun setNextOccurrence(reminder: Reminder) {
+    val calendar = Calendar.getInstance()
+    val rand = (2 * reminder.variance) * Math.random() - reminder.variance
+    calendar.add(Calendar.DAY_OF_WEEK, (reminder.frequency + rand).toInt())
+
+    reminder.nextOccurrence = fromCalendar(calendar)
 }

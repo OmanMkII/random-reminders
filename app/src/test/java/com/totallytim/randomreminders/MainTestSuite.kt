@@ -6,7 +6,7 @@ import org.junit.runners.Suite
 import org.junit.runners.Suite.SuiteClasses
 
 @RunWith(Suite::class)
-@SuiteClasses(ReminderTest::class, ScheduleTest::class)
-class TestRunner {
+@SuiteClasses(ScheduleTest::class)
+class MainTestSuite {
     // TODO: pass all the tests, duh
 }

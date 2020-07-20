@@ -12,42 +12,41 @@ import kotlin.reflect.jvm.internal.impl.load.kotlin.JvmType
  */
 @Entity(tableName = "settings_table")
 data class Setting(
-        @PrimaryKey
-        @ColumnInfo(name = "field_name")
-        var field: String,
+    @PrimaryKey
+    @ColumnInfo(name = "field_name")
+    var field: String,
 
-        @ColumnInfo(name = "entry_type")
-        var dataType: Int = -1,
+    @ColumnInfo(name = "entry_type")
+    var dataType: Int = -1,
 
-        @ColumnInfo(name = "entry_data")
-        var data: String) {
+    @ColumnInfo(name = "entry_data")
+    var data: String
+)
 
-//    /**
-//     * Converts the unknown data to its correct type and returns and 'Any' data type, to be used at
-//     * runtime.
-//     *
-//     * TODO: make this compile properly
-//     *
-//     * @return the data in correct form
-//     */
-//    fun getData(): Any {
-//        return when(dataType) {
-//            0 -> {
-//                // String
-//                data
-//            }
-//            1 -> {
-//                // Integer
-//                data.toInt()
-//            }
-//            2 -> {
-//                // Boolean
-//                when(data) {
-//                    "0" -> false
-//                    else -> true
-//                }
-//            }
-//            else -> throw UnsupportedOperationException("Unknown stored type")
-//        }
-//    }
+/**
+ * Converts the unknown data to its correct type and returns and 'Any' data type, to be used at
+ * runtime.
+ *
+ * @param setting   The setting object being checked
+ * @return the data in correct form
+ */
+fun getData(setting: Setting): Any {
+    return when(setting.dataType) {
+        0 -> {
+            // String
+            setting.data
+        }
+        1 -> {
+            // Integer
+            setting.data.toInt()
+        }
+        2 -> {
+            // Boolean
+            when(setting.data) {
+                "0" -> false
+                else -> true
+            }
+        }
+        else -> throw UnsupportedOperationException("Unknown stored type")
+    }
 }

@@ -1,18 +1,14 @@
-package com.totallytim.randomreminders
+package com.totallytim.randomreminders.database
 
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.totallytim.randomreminders.database.Reminder
-import com.totallytim.randomreminders.database.ReminderDatabase
-import com.totallytim.randomreminders.database.insertSetOfNewReminders
 import kotlinx.coroutines.*
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 class ReminderDatabaseTest {
@@ -214,7 +210,10 @@ class ReminderDatabaseTest {
             deleteJob.await()
 
             val insertAllJob = GlobalScope.async {
-                insertSetOfNewReminders(database, reminderList)
+                insertSetOfNewReminders(
+                    database,
+                    reminderList
+                )
             }
 
             insertAllJob.await()

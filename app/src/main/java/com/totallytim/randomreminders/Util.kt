@@ -3,6 +3,7 @@ package com.totallytim.randomreminders
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.TypeConverter
+import com.totallytim.randomreminders.database.Day
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.Setting
@@ -121,7 +122,7 @@ fun asStringArray(settings: List<Setting>): Array<String> {
  */
 @TypeConverter
 fun <T> asMutableList(array: Array<T>): MutableList<T> {
-    var output: MutableList<T> = mutableListOf()
+    val output: MutableList<T> = mutableListOf()
     for (t in array) {
         output.add(t)
     }
@@ -132,6 +133,7 @@ fun <T> asMutableList(array: Array<T>): MutableList<T> {
  * Populates the database with bogus data for testing purposes.
  *
  * @param database  A reference to the database
+ * @return the context for the job to populate the database
  */
 suspend fun populateDatabase(database: ReminderDatabase) {
     return withContext(Dispatchers.IO) {
@@ -160,25 +162,6 @@ suspend fun populateDatabase(database: ReminderDatabase) {
             //        reminders[i]!!.setNextOccurrence()
             database.reminderDatabaseDao.updateExistingReminder(reminders[i]!!)
         }
-    }
-}
-
-/**
- * Inserts a set of Reminder objects to the database.
- *
- * @param database  The local database instance
- * @param reminders The set of reminders to insert
- * @return a list of deferred jobs to await for all items to be inserted
- */
-suspend fun insertSetOfNewReminders(database: ReminderDatabase, reminders: Set<Reminder>):
-        List<Deferred<Unit>> {
-    return withContext(Dispatchers.IO) {
-        var asyncReminders: MutableList<Deferred<Unit>> = mutableListOf()
-        for (rem in reminders) {
-            val job = GlobalScope.async { database.reminderDatabaseDao.insertNewReminder(rem) }
-            asyncReminders.add(job)
-        }
-        asyncReminders
     }
 }
 
