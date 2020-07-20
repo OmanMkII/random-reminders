@@ -6,8 +6,7 @@ import androidx.room.TypeConverter
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.Setting
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.util.*
 import kotlin.math.floor
 import kotlin.math.pow
@@ -161,6 +160,25 @@ suspend fun populateDatabase(database: ReminderDatabase) {
             //        reminders[i]!!.setNextOccurrence()
             database.reminderDatabaseDao.updateExistingReminder(reminders[i]!!)
         }
+    }
+}
+
+/**
+ * Inserts a set of Reminder objects to the database.
+ *
+ * @param database  The local database instance
+ * @param reminders The set of reminders to insert
+ * @return a list of deferred jobs to await for all items to be inserted
+ */
+suspend fun insertSetOfNewReminders(database: ReminderDatabase, reminders: Set<Reminder>):
+        List<Deferred<Unit>> {
+    return withContext(Dispatchers.IO) {
+        var asyncReminders: MutableList<Deferred<Unit>> = mutableListOf()
+        for (rem in reminders) {
+            val job = GlobalScope.async { database.reminderDatabaseDao.insertNewReminder(rem) }
+            asyncReminders.add(job)
+        }
+        asyncReminders
     }
 }
 

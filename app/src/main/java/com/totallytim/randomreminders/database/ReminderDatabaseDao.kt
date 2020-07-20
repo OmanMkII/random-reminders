@@ -122,18 +122,3 @@ interface ReminderDatabaseDao {
     @Query("SELECT * FROM reminders_table WHERE next_occurrence IS NOT NULL ORDER BY -next_occurrence DESC LIMIT :lim")
     fun getNextReminder(lim: Int): LiveData<Array<Reminder>?>
 }
-
-
-/**
- * Inserts a set of Reminder objects to the database.
- */
-suspend fun insertSetOfNewReminders(database: ReminderDatabase, reminders: Set<Reminder>): MutableList<Deferred<Unit>> {
-    return withContext(Dispatchers.IO) {
-        var asyncReminders: MutableList<Deferred<Unit>> = mutableListOf()
-        for (rem in reminders) {
-            val job = GlobalScope.async { database.reminderDatabaseDao.insertNewReminder(rem) }
-            asyncReminders.add(job)
-        }
-        asyncReminders
-    }
-}

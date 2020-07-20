@@ -32,7 +32,7 @@ class ReminderDatabaseTest {
         database = ReminderDatabase.getInstance(context)
     }
 
-    suspend fun populateDatabase() {
+    private suspend fun populateDatabase() {
         return withContext(Dispatchers.IO) {
             // clear all data to prevent test conflicts
             database.reminderDatabaseDao.deleteAllReminders()
@@ -66,7 +66,7 @@ class ReminderDatabaseTest {
     private fun assertPopulatedDataCorrect(data: LiveData<Array<Reminder>>, canExceed: Boolean) {
         // Note: only name reminders as >5
         for ((i, reminder) in data.value!!.asIterable().withIndex()) {
-            // ensure that the first 5 are the inserted vaues
+            // ensure that the first 5 are the inserted values
             if (i >= 5) {
                 // if not the first test, allow it to exceed 5 values
                 if (canExceed) {
@@ -163,7 +163,7 @@ class ReminderDatabaseTest {
         testScope.launch {
             populateDatabase()
             // get initial data
-            var data = database.reminderDatabaseDao.getAllReminders()
+            val data = database.reminderDatabaseDao.getAllReminders()
             // assert initial data correct
             assertPopulatedDataCorrect(data, false)
 
@@ -231,10 +231,7 @@ class ReminderDatabaseTest {
             Assert.assertNotNull(nextReminder.value!![0])
 
             // assert r2 is the next calendar event
-            Assert.assertEquals(
-                r2,
-                nextReminder.value!![0]
-            )
+            Assert.assertEquals(r2, nextReminder.value!![0])
 
             // clear all data to prevent test conflicts
             database.reminderDatabaseDao.deleteAllReminders()
