@@ -118,8 +118,12 @@ class ReminderDatabaseTest {
     fun testUpdateReminder() {
         testScope.launch {
             populateDatabase()
+            val populateJob = GlobalScope.async { populateDatabase() }
+            populateJob.await()
+
             // get initial data
-            var data = database.reminderDatabaseDao.getAllReminders()
+            val callJob1 = GlobalScope.async { database.reminderDatabaseDao.getAllReminders() }
+            var data = callJob1.await()
             // assert initial data correct
             assertPopulatedDataCorrect(data, false)
 
@@ -137,12 +141,14 @@ class ReminderDatabaseTest {
             val r5 = Reminder("Reminder 5",
                 1L, 1f, null, "Another description")
 
-            database.reminderDatabaseDao.updateExistingReminder(r2)
-            database.reminderDatabaseDao.updateExistingReminder(r4)
-            database.reminderDatabaseDao.updateExistingReminder(r5)
+            val inputSet = mutableSetOf<Reminder>(r2, r4, r5)
+
+            val insertJob = GlobalScope.async { updateSetOfReminders(database, inputSet) }
+            insertJob.await()
 
             // assert they're correct
-            data = database.reminderDatabaseDao.getAllReminders()
+            val callJob2 = GlobalScope.async { database.reminderDatabaseDao.getAllReminders() }
+            data = callJob2.await()
 
             val dataSet = arrayOf(r1, r2, r3, r4, r5)
             for ((i, d) in data.value!!.withIndex()) {
@@ -157,6 +163,7 @@ class ReminderDatabaseTest {
     @Test
     fun testDeleteReminder() {
         testScope.launch {
+            // TODO: properly await the next time it fails
             populateDatabase()
             // get initial data
             val data = database.reminderDatabaseDao.getAllReminders()

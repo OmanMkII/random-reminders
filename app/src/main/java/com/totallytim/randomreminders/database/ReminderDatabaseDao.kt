@@ -140,3 +140,22 @@ suspend fun insertSetOfNewReminders(database: ReminderDatabase, reminders: Set<R
         asyncReminders
     }
 }
+
+/**
+ * Updates a set of Reminders.
+ *
+ * @param database  The local database instance
+ * @param reminders The set of reminders to insert
+ * @return a list of deferred jobs to await for all items to be updated
+ */
+suspend fun updateSetOfReminders(database: ReminderDatabase, reminders: Set<Reminder>):
+        List<Deferred<Unit>> {
+    return withContext(Dispatchers.IO) {
+        val asyncReminders: MutableList<Deferred<Unit>> = mutableListOf()
+        for (rem in reminders) {
+            val job = GlobalScope.async { database.reminderDatabaseDao.updateExistingReminder(rem) }
+            asyncReminders.add(job)
+        }
+        asyncReminders
+    }
+}
