@@ -31,6 +31,15 @@ class MainViewModel(
 
             // run all relevant functions (including async/suspended ones)
             reminders = getAllReminders()
+
+            delay(2000)
+            if (reminders.value == null) {
+                Toast.makeText(application.baseContext, "Null entry!",
+                    Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(application.baseContext, "Have " + reminders.value!!.size + " entries",
+                    Toast.LENGTH_LONG).show()
+            }
         }
     }
 

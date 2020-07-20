@@ -12,38 +12,38 @@ import java.util.*
  */
 @Entity(tableName = "reminders_table")
 data class Reminder(
-        /**
+    /**
          * The name of this reminder (non-unique).
          */
         @PrimaryKey
         @ColumnInfo(name = "reminder_name")
-        var name: String = "",
+    var name: String = "",
 
-        /**
+    /**
          * The frequency with which this reminder will recur.
          */
         @ColumnInfo(name = "frequency")
-        var frequency: Long = 0L,
+    var frequency: Long = 0L,
 
-        /**
+    /**
          * The variance from the mean at which this occurs, that is:
          *
          * NEXT_OCCURRENCE = NOW + T(frequency +/- Range(variance))
          */
         @ColumnInfo(name = "variance")
-        var variance: Long = 0L,
+    var variance: Float = 0f,
 
-        /**
+    /**
          * The next time this reminder instance will occur.
          */
         @ColumnInfo(name = "next_occurrence")
-        var nextOccurrence: Long? = fromCalendar(Calendar.getInstance()),
+    var nextOccurrence: Long? = fromCalendar(Calendar.getInstance()),
 
-        /**
+    /**
          * Additional information about this reminder that will be presented when triggered.
          */
         @ColumnInfo(name = "description")
-        var description: String? = null) {
+    var description: String? = null) {
 //
 //    fun setNextOccurrence() {
 //        val calendar = Calendar.getInstance()

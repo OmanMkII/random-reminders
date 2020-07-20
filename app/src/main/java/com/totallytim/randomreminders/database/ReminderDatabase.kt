@@ -17,6 +17,8 @@ abstract class ReminderDatabase : RoomDatabase() {
      */
     companion object {
 
+        var TEST_MODE = false
+
         @Volatile
         private var INSTANCE: ReminderDatabase? = null
 
@@ -30,14 +32,23 @@ abstract class ReminderDatabase : RoomDatabase() {
             synchronized(this) {
                 var instance = INSTANCE
                 if (instance == null) {
-                    // TODO: assign the instance you *moron*
-                    instance = Room.databaseBuilder(
-                        context.applicationContext,
-                        ReminderDatabase::class.java,
-                        "reminder_database"
-                    )
-                        .fallbackToDestructiveMigration()
-                        .build()
+                    if (TEST_MODE) {
+                        // TODO: assert (test) that this is a correct form!
+                        instance = Room.inMemoryDatabaseBuilder(
+                            context.applicationContext,
+                            ReminderDatabase::class.java
+                        )
+                            .allowMainThreadQueries()
+                            .build()
+                    } else {
+                        instance = Room.databaseBuilder(
+                            context.applicationContext,
+                            ReminderDatabase::class.java,
+                            "reminder_database"
+                        )
+                            .fallbackToDestructiveMigration()
+                            .build()
+                    }
                     INSTANCE = instance
                 }
                 return instance

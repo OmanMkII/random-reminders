@@ -5,6 +5,8 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
+import com.totallytim.randomreminders.asMutableList
+import kotlinx.coroutines.*
 
 /**
  * The main database of all reminder objects.
@@ -104,12 +106,34 @@ interface ReminderDatabaseDao {
     /**
      * Selects all existing entries, ordered by the next occurrence.
      */
-    @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC")
+//    @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC")
+    @Query("SELECT * FROM reminders_table ORDER BY reminder_name DESC")
     fun getAllReminders(): LiveData<Array<Reminder>>
 
     /**
-     * Selects all existing extries and orders by next occurring, with a variable limit on volume.
+     * Selects all existing entries, ordered by the next occurrence.
      */
-    @Query("SELECT * FROM reminders_table ORDER BY next_occurrence DESC LIMIT :num")
-    fun getNextReminder(num: Int): LiveData<Array<Reminder>?>
+    @Query("SELECT * FROM reminders_table WHERE next_occurrence IS NOT NULL ORDER BY reminder_name DESC")
+    fun getAllRemindersWithEvents(): LiveData<Array<Reminder>>
+
+    /**
+     * Selects all existing entries and orders by next occurring, with a variable limit on volume.
+     */
+    @Query("SELECT * FROM reminders_table WHERE next_occurrence IS NOT NULL ORDER BY -next_occurrence DESC LIMIT :lim")
+    fun getNextReminder(lim: Int): LiveData<Array<Reminder>?>
+}
+
+
+/**
+ * Inserts a set of Reminder objects to the database.
+ */
+suspend fun insertSetOfNewReminders(database: ReminderDatabase, reminders: Set<Reminder>): MutableList<Deferred<Unit>> {
+    return withContext(Dispatchers.IO) {
+        var asyncReminders: MutableList<Deferred<Unit>> = mutableListOf()
+        for (rem in reminders) {
+            val job = GlobalScope.async { database.reminderDatabaseDao.insertNewReminder(rem) }
+            asyncReminders.add(job)
+        }
+        asyncReminders
+    }
 }

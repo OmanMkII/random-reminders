@@ -63,12 +63,6 @@ class MainFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(context, viewModel.reminders.value?.size.toString(),
-            Toast.LENGTH_SHORT).show()
-    }
-
     private fun bindObjects() {
         binding.reminderRecyclerView.adapter = ReminderAdapter()
 

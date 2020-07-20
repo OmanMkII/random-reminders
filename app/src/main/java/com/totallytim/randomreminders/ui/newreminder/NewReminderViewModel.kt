@@ -1,12 +1,8 @@
 package com.totallytim.randomreminders.ui.newreminder
 
 import android.app.Application
-import android.app.PendingIntent.getActivity
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.totallytim.randomreminders.database.Reminder
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.NewReminderFragmentBinding

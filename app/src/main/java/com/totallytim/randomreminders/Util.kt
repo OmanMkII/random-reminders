@@ -145,7 +145,6 @@ suspend fun populateDatabase(database: ReminderDatabase) {
             "Reminder 5"
         )
         val frequency = arrayOf(1L, 2L, 3L, 4L, 5L)
-        val variance = frequency
         val description = arrayOf(
             "First reminder.",
             "",
@@ -156,7 +155,8 @@ suspend fun populateDatabase(database: ReminderDatabase) {
         // Reminders
         val reminders = arrayOf<Reminder?>(null, null, null, null, null)
         for (i in 0..4) {
-            reminders[i] = Reminder(names[i], frequency[i], variance[i], null, description[i])
+            reminders[i] = Reminder(names[i], frequency[i], (1 / frequency[i]).toFloat(),
+                null, description[i])
             // TODO
             //        reminders[i]!!.setNextOccurrence()
             database.reminderDatabaseDao.updateExistingReminder(reminders[i]!!)
