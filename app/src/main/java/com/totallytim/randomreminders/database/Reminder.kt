@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.totallytim.randomreminders.fromCalendar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.util.*
 
 /**
@@ -52,10 +54,13 @@ data class Reminder(
  *
  * @param reminder  The reminder being set
  */
-fun setNextOccurrence(reminder: Reminder) {
-    val calendar = Calendar.getInstance()
-    val rand = (2 * reminder.variance) * Math.random() - reminder.variance
-    calendar.add(Calendar.DAY_OF_WEEK, (reminder.frequency + rand).toInt())
+suspend fun resetNextOccurrence(database: ReminderDatabase, reminder: Reminder) {
+    withContext(Dispatchers.IO) {
+        val calendar = Calendar.getInstance()
+        val rand = (2 * reminder.variance) * Math.random() - reminder.variance
+        calendar.add(Calendar.DAY_OF_WEEK, (reminder.frequency + rand).toInt())
 
-    reminder.nextOccurrence = fromCalendar(calendar)
+        reminder.nextOccurrence = fromCalendar(calendar)
+        database.reminderDatabaseDao.updateExistingReminder(reminder)
+    }
 }

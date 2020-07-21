@@ -33,7 +33,6 @@ abstract class ReminderDatabase : RoomDatabase() {
                 var instance = INSTANCE
                 if (instance == null) {
                     if (TEST_MODE) {
-                        // TODO: assert (test) that this is a correct form!
                         instance = Room.inMemoryDatabaseBuilder(
                             context.applicationContext,
                             ReminderDatabase::class.java
