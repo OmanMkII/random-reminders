@@ -49,4 +49,9 @@ class SplashScreenFragment : Fragment() {
             findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        splashViewJob.cancel()
+    }
 }

@@ -3,10 +3,7 @@ package com.totallytim.randomreminders
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.TypeConverter
-import com.totallytim.randomreminders.database.Day
-import com.totallytim.randomreminders.database.Reminder
-import com.totallytim.randomreminders.database.ReminderDatabase
-import com.totallytim.randomreminders.database.Setting
+import com.totallytim.randomreminders.database.*
 import kotlinx.coroutines.*
 import java.util.*
 import kotlin.math.floor
@@ -135,7 +132,7 @@ fun <T> asMutableList(array: Array<T>): MutableList<T> {
  * @param database  A reference to the database
  * @return the context for the job to populate the database
  */
-suspend fun populateDatabase(database: ReminderDatabase) {
+suspend fun populateDatabase(dataSource: ReminderDatabaseDao) {
     return withContext(Dispatchers.IO) {
         // Raw data
         val names = arrayOf(
@@ -160,7 +157,7 @@ suspend fun populateDatabase(database: ReminderDatabase) {
                 null, description[i])
             // TODO
             //        reminders[i]!!.setNextOccurrence()
-            database.reminderDatabaseDao.updateExistingReminder(reminders[i]!!)
+            dataSource.updateExistingReminder(reminders[i]!!)
         }
     }
 }

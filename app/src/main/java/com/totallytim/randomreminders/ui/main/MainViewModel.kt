@@ -21,25 +21,46 @@ class MainViewModel(
     private val viewModelJob = Job()
     private val mainScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+//    private val queryJob: Job
+//    private val insertJob: Job
+
     var reminders: LiveData<Array<Reminder>> = MutableLiveData<Array<Reminder>>()
 
     init {
         // launch the local job
         mainScope.launch {
             // TODO: populate database for now
-            populateDatabase(ReminderDatabase.getInstance(application))
+//            val queryJob = GlobalScope.async { dataSource.getAllReminders() }
+            val insertJob = GlobalScope.async { populateDatabase(dataSource) }
 
             // run all relevant functions (including async/suspended ones)
             reminders = getAllReminders()
 
-            delay(2000)
-            if (reminders.value == null) {
+//            delay(2000)
+            insertJob.await()
+
+            val queryJob = GlobalScope.async { dataSource.getAllReminders() }
+            val data = queryJob.await()
+
+            if (data.value == null) {
                 Toast.makeText(application.baseContext, "Null entry!",
                     Toast.LENGTH_LONG).show()
             } else {
-                Toast.makeText(application.baseContext, "Have " + reminders.value!!.size + " entries",
+                Toast.makeText(application.baseContext, "Have " + data.value!!.size + " entries",
                     Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    fun pollReminders() {
+        mainScope.launch {
+            val reminders = getAllReminders()
+//            val queryJob = GlobalScope.async { dataSource.getAllReminders() }
+//            val data = queryJob.await()
+
+            Toast.makeText(application.applicationContext,
+                "%d values found".format(reminders.value!!.size), Toast.LENGTH_SHORT)
+                .show()
         }
     }
 

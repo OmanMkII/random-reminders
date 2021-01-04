@@ -141,7 +141,7 @@ class ReminderDatabaseTest {
             val r5 = Reminder("Reminder 5",
                 1L, 1f, null, "Another description")
 
-            val inputSet = mutableSetOf<Reminder>(r2, r4, r5)
+            val inputSet = mutableSetOf(r2, r4, r5)
 
             val insertJob = GlobalScope.async { updateSetOfReminders(database, inputSet) }
             insertJob.await()

@@ -62,4 +62,10 @@ class SettingsViewModel(
         // TODO: is this necessary?
         _settingsComplete = false
     }
+
+    // TODO: if implementing a new job
+//    override fun onCleared() {
+//        super.onCleared()
+//        viewModelJob.cancel()
+//    }
 }

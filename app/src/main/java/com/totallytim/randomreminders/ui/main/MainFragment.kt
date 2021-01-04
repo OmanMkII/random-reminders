@@ -5,24 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.totallytim.randomreminders.R
 import com.totallytim.randomreminders.database.ReminderDatabase
 import com.totallytim.randomreminders.database.ReminderDatabaseDao
 import com.totallytim.randomreminders.databinding.MainFragmentBinding
-import com.totallytim.randomreminders.modules.Schedule
-import com.totallytim.randomreminders.populateDatabase
 import com.totallytim.randomreminders.ui.reminders.ReminderAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 
 /**
  * The primary fragment of the activity that displays the central data.
@@ -64,6 +56,9 @@ class MainFragment : Fragment() {
     }
 
     private fun bindObjects() {
+        binding.lifecycleOwner = this
+        binding.mainViewModel = viewModel
+
         binding.reminderRecyclerView.adapter = ReminderAdapter()
 
         binding.newReminderButton.setOnClickListener { view: View ->
