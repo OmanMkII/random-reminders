@@ -19,11 +19,8 @@ class MainViewModel(
     private val viewModelJob = Job()
     private val mainScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-//    private val queryJob: Job
-//    private val insertJob: Job
-
     var reminders: LiveData<Array<Reminder>> = MutableLiveData()
-    var noReminders: Int = 0
+    var numReminders: Int = 0
 
     init {
         getAllReminders()
@@ -31,10 +28,10 @@ class MainViewModel(
 
     fun pollReminders() {
         mainScope.launch {
-            noReminders = getNoRemindersFromDb()
+            numReminders = getNoRemindersFromDb()
         }
         // display num
-        Toast.makeText(application.baseContext, "%d entries".format(noReminders),
+        Toast.makeText(application.baseContext, "%d entries".format(numReminders),
                 Toast.LENGTH_SHORT).show()
     }
 

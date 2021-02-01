@@ -4,7 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <data>
-
+        <variable
+            name="settingsViewModel"
+            type="com.totallytim.randomreminders.ui.settings.SettingsViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -30,6 +32,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
+            android:checked="@{settingsViewModel.getTestMode()}"
+            android:onCheckedChanged="@{() -> settingsViewModel.setTestMode()}"
             android:text="@string/test_mode"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,6 +56,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
+            android:checked="@{settingsViewModel.getNotificationsAllowed()}"
+            android:onCheckedChanged="@{() -> settingsViewModel.setNotificationsAllowed()}"
             android:text="@string/allow_notifications"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

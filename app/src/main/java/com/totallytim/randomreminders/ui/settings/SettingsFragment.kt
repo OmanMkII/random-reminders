@@ -51,9 +51,7 @@ class SettingsFragment : Fragment() {
             view.findNavController().navigate(R.id.action_settingsFragment_to_mainFragment)
         }
 
-        // ScoreFragmentArgs.fromBundle(arguments!!).score
-
-
+        binding.settingsViewModel = viewModel
 
         return binding.root
     }

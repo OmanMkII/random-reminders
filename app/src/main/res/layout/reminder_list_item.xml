@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--Above is fix for: E/RecyclerView: No layout manager attached; skipping layout-->
+
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">

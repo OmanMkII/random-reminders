@@ -44,10 +44,7 @@ class NewReminderViewModel(
         reminder.variance = binding.fieldReminderVariance.text.toString().toFloat()
         reminder.description = binding.fieldReminderDescription.text.toString()
         // insert or throw
-        if (fieldsContainNull())
-            Toast.makeText(application.baseContext, "Please enter a Name, Frequency, and Variance.",
-                Toast.LENGTH_SHORT).show()
-        else
+        if (! fieldsContainNull())
             database.insertNewReminder(reminder)
     }
 
