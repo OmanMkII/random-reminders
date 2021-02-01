@@ -1,6 +1,8 @@
 package com.totallytim.randomreminders.ui.newreminder
 
 import android.app.Application
+import android.text.TextUtils
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.totallytim.randomreminders.database.Reminder
@@ -12,49 +14,48 @@ import kotlinx.coroutines.*
  * The view model for a new reminder
  */
 class NewReminderViewModel(
-    private val dataSource: ReminderDatabaseDao,
+    private val database: ReminderDatabaseDao,
     val application: Application,
     val binding: NewReminderFragmentBinding
 ) : ViewModel() {
 
-    var reminderName: MutableLiveData<String?> = MutableLiveData(null)
-    var reminderFrequency: MutableLiveData<Long?> = MutableLiveData(null)
-    var reminderVariance: MutableLiveData<Long?> = MutableLiveData(null)
-    var reminderDescription: MutableLiveData<String?> = MutableLiveData(null)
-
-    private val inputSet: Set<MutableLiveData<out Any?>> = setOf(
-        reminderName,
-        reminderFrequency,
-        reminderVariance,
-        reminderDescription
-    )
-
     private var viewModelJob = Job()
     private val newReminderScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
-    fun fieldsContainNull() : Boolean {
-        for (i in inputSet) {
-            if (i.value == null && i != reminderDescription) {
-                return true
-            }
-        }
-        return false
+    // TODO: does it already exist?
+    init {
+    clearFields()
+//        newReminderScope.launch {
+//            val reminder = database.getReminder()
+//        }
+    }
+
+    fun fieldsContainNull(): Boolean {
+        // return true is a required field is empty
+        return TextUtils.isEmpty(binding.fieldReminderName.text) ||
+                TextUtils.isEmpty(binding.fieldReminderFrequency.text) ||
+                TextUtils.isEmpty(binding.fieldReminderVariance.text)
     }
 
     private suspend fun insertNewReminder() {
-        return withContext(Dispatchers.IO) {
-            val reminder = Reminder()
-//            reminder.setNextOccurrence()
-            dataSource.insertNewReminder(reminder)
-        }
+        val reminder = Reminder()
+        reminder.name = binding.fieldReminderName.text.toString()
+        reminder.frequency = binding.fieldReminderFrequency.text.toString().toLong()
+        reminder.variance = binding.fieldReminderVariance.text.toString().toFloat()
+        reminder.description = binding.fieldReminderDescription.text.toString()
+        // insert or throw
+        if (fieldsContainNull())
+            Toast.makeText(application.baseContext, "Please enter a Name, Frequency, and Variance.",
+                Toast.LENGTH_SHORT).show()
+        else
+            database.insertNewReminder(reminder)
     }
 
     private fun clearFields() {
-        // TODO: clear fields when transitioning to || from
-//        binding.fieldReminderName.text = null
-//        binding.fieldReminderFrequency.text = null
-//        binding.fieldReminderVariance.text = null
-//        binding.fieldReminderDescription.text = null
+        binding.fieldReminderName.text = null
+        binding.fieldReminderFrequency.text = null
+        binding.fieldReminderVariance.text = null
+        binding.fieldReminderDescription.text = null
     }
 
     fun onFormCompleted() {

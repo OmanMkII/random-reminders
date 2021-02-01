@@ -57,55 +57,14 @@ class NewReminderFragment : Fragment() {
         // binding
         binding.newReminderConfirmButton.setOnClickListener { view : View ->
             if (viewModel.fieldsContainNull()) {
-                Toast.makeText(context, "Please complete all fields", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(context, "Please complete all required fields",
+                    Toast.LENGTH_SHORT).show()
             } else {
                 viewModel.onFormCompleted()
                 view.findNavController().navigate(R.id.action_newReminderFragment_to_mainFragment)
             }
         }
 
-        bindTextFields()
-
         return binding.root
-    }
-
-    private fun bindTextFields() {
-        binding.fieldReminderName.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderName.value = s?.toString()
-            }
-
-            // Do nothing for these?
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        binding.fieldReminderDescription.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderDescription.value = s?.toString()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        binding.fieldReminderVariance.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderVariance.value = s?.toString()?.toLong()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
-
-        binding.fieldReminderFrequency.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                viewModel.reminderFrequency.value = s?.toString()?.toLong()
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-        })
     }
 }
