@@ -45,7 +45,8 @@ class SplashScreenFragment : Fragment() {
      */
     private fun splashScreenDelay(time: Long = 2500) {
         splashScope.launch {
-            delay(time)
+            delay(0)
+//            delay(time)
             findNavController().navigate(R.id.action_splashScreenFragment_to_mainFragment)
         }
     }

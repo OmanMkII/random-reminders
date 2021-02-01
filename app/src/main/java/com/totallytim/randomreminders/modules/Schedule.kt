@@ -18,12 +18,19 @@ import java.util.*
 class Schedule(var database: ReminderDatabase) {
 
     // available times and reminders data
-    private var week: LiveData<Array<Day>> = database.reminderDatabaseDao.getAllDays()
-    private var reminders: LiveData<Array<Reminder>> = database.reminderDatabaseDao.getAllReminders()
+    private lateinit var week: LiveData<Array<Day>>
+    private lateinit var reminders: LiveData<Array<Reminder>>
 
     // scope of current tasks
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
+
+    init {
+        uiScope.launch {
+            week = database.reminderDatabaseDao.getAllDays()
+            reminders = database.reminderDatabaseDao.getAllReminders()
+        }
+    }
 
     /**
      * Returns what days are available from their string name.

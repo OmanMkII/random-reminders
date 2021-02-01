@@ -153,7 +153,7 @@ suspend fun populateDatabase(dataSource: ReminderDatabaseDao) {
         // Reminders
         val reminders = arrayOf<Reminder?>(null, null, null, null, null)
         for (i in 0..4) {
-            reminders[i] = Reminder(names[i], frequency[i], (1 / frequency[i]).toFloat(),
+            reminders[i] = Reminder(i, names[i], frequency[i], (1 / frequency[i]).toFloat(),
                 null, description[i])
             // TODO
             //        reminders[i]!!.setNextOccurrence()

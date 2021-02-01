@@ -8,6 +8,9 @@ import androidx.room.Update
 import com.totallytim.randomreminders.asMutableList
 import kotlinx.coroutines.*
 
+// TODO :: All queries that return a single instance should be called using a suspend fun
+// TODO :: All queries that return a list should return LiveData<List> and NOT use a suspend fun
+
 /**
  * The main database of all reminder objects.
  */
@@ -23,13 +26,13 @@ interface ReminderDatabaseDao {
      * Inserts a new Setting to the data table
      */
     @Insert
-    fun insertNewSetting(setting: Setting)
+    suspend fun insertNewSetting(setting: Setting)
 
     /**
      * Updates an existing setting
      */
     @Update
-    fun updateExistingSetting(setting: Setting)
+    suspend fun updateExistingSetting(setting: Setting)
 
     /**
      * Selects all setting from the table
@@ -41,7 +44,7 @@ interface ReminderDatabaseDao {
      * Selects a specific setting from the data table
      */
     @Query("SELECT * FROM settings_table WHERE field_name = :key")
-    fun getSetting(key: String): LiveData<Setting?>
+    suspend fun getSetting(key: String): Setting?
 
 
     /** Day Queries */
@@ -50,19 +53,19 @@ interface ReminderDatabaseDao {
      * Inserts a new Reminder object.
      */
     @Insert
-    fun insertNewDay(day: Day)
+    suspend fun insertNewDay(day: Day)
 
     /**
      * updates an existing reminder object.
      */
     @Update
-    fun updateExistingDay(day: Day)
+    suspend fun updateExistingDay(day: Day)
 
     /**
      * Get a specific Day
      */
     @Query("SELECT * FROM daily_schedule WHERE day_name = :key")
-    fun getDay(key: String): LiveData<Day>
+    suspend fun getDay(key: String): Day
 
     /**
      * Gets all Days from the database
@@ -77,37 +80,40 @@ interface ReminderDatabaseDao {
      * Inserts a new Reminder object.
      */
     @Insert
-    fun insertNewReminder(reminder: Reminder)
+    suspend fun insertNewReminder(reminder: Reminder)
 
     /**
      * updates an existing reminder object.
      */
     @Update
-    fun updateExistingReminder(reminder: Reminder)
+    suspend fun updateExistingReminder(reminder: Reminder)
 
     /**
      * Clears an existing entry from the database.
      */
     @Query("DELETE FROM reminders_table WHERE reminder_name = :key")
-    fun deleteReminder(key: String)
+    suspend fun deleteReminder(key: String)
 
     /**
      * Clears all existing entries from the database.
      */
     @Query("DELETE FROM reminders_table")
-    fun deleteAllReminders()
+    suspend fun deleteAllReminders()
 
     /**
      * Selects an existing entry given the name.
      */
     @Query("SELECT * FROM reminders_table WHERE reminder_name = :key")
-    fun getReminder(key: String): LiveData<Reminder?>
+    suspend fun getReminder(key: String): Reminder?
 
     /**
      * Selects all existing entries, ordered by the next occurrence.
      */
     @Query("SELECT * FROM reminders_table ORDER BY reminder_name DESC")
     fun getAllReminders(): LiveData<Array<Reminder>>
+
+    @Query("SELECT COUNT(*) FROM reminders_table")
+    suspend fun getNumReminders(): Int
 
     /**
      * Selects all existing entries, ordered by the next occurrence.
